@@ -78,3 +78,23 @@ body, html {
     color: #333; /* Darker color for visibility */
     margin-top: 5px; /* Space between textarea and screenshot text */
 }
+
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
+    #outputText {
+        font-size: 32px; /* Smaller font size for mobile */
+        letter-spacing: 4px; /* Reduce letter spacing for mobile */
+        padding: 10px; /* Reduce padding */
+    }
+
+    #userInput {
+        width: 90%; /* Take up more width on mobile */
+        height: 50px; /* Slightly smaller height */
+        font-size: 14px; /* Keep font size */
+        padding: 10px 0; /* Reduce padding */
+    }
+
+    .container {
+        padding-top: 20px; /* Less top padding for mobile */
+    }
+}
