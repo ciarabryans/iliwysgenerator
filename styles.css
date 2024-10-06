@@ -36,11 +36,15 @@ body, html {
 
 .disclaimer {
     text-align: center;
-    margin: 20px 0; /* Add margin to top and bottom */
+    margin-top: 20px;
     font-size: 12px;
     color: #ffcedb;
-    padding-left: 20px;
-    padding-right: 20px;
+    position: fixed; /* Make it fixed */
+    bottom: 0; /* Position it at the bottom */
+    left: 0; /* Align to the left */
+    right: 0; /* Stretch to the right */
+    padding: 10px; /* Add some padding */
+    z-index: 1000; /* Ensure it stays on top of other content */
 }
 
 #outputText {
