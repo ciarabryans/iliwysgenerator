@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Calculate proportional letter spacing based on the font size
         const defaultFontSize = 36; // The base font size for desktop
-        const defaultLetterSpacing = 6; // The default letter spacing for desktop
+        const defaultLetterSpacing = 10; // Changed default letter spacing to 10px
 
         // Calculate new letter spacing relative to the base size
         const newLetterSpacing = (fontSize / defaultFontSize) * defaultLetterSpacing;
@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update output text and adjust font size and letter spacing based on user input
     userInput.addEventListener('input', debounce(function() {
-        const text = userInput.value.trim();
-        outputText.innerHTML = text || defaultOutput;
+        const text = userInput.value; // Remove the .trim() to allow line breaks
+        outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput; // Replace newlines with <br>
         adjustFontSizeAndSpacing(outputText.innerHTML);
     }, 300)); // Debounce with a 300ms delay for smoother updates
 
