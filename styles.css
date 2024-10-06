@@ -90,12 +90,12 @@ body, html {
     }
 
     #userInput {
-        width: 90%; /* Make it responsive */
-        max-width: 90%; /* Ensure it doesn't exceed screen size */
+        width: 90%; /* Ensure it takes 90% of the screen width */
+        max-width: 90%; /* Make the max width 90% */
         height: 50px; /* Slightly smaller height */
         font-size: 14px; /* Keep font size */
         padding: 10px 0; /* Reduce padding */
-        margin: 0 auto; /* Center the input field */
+        margin: 30px auto 0; /* Increase top margin for extra space between output and input */
     }
 
     .container {
@@ -108,3 +108,4 @@ body, html {
         min-height: 100vh; /* Ensure at least full viewport height */
     }
 }
+
