@@ -4,41 +4,59 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set default output message with line break
     const defaultOutput = "Genuinely laughable<br>iliwys text generator";
-
-    // Set the output text to the default message when the page loads
     outputText.innerHTML = defaultOutput;
 
-    function adjustFontSize(text) {
+    // Create a single canvas for text measurement
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    // Function to adjust the font size and letter spacing based on text and screen width
+    function adjustFontSizeAndSpacing(text) {
         const maxWidth = window.innerWidth * 0.9; // Set maximum width to 90% of the viewport
-        let fontSize = 36; // Set default maximum font size
+        let fontSize = 36; // Default maximum font size
         const minFontSize = 20; // Minimum font size
 
-        // Create a temporary canvas to measure text width
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        context.font = `${fontSize}px GothicB`; // Set the initial font size
+        // Set initial font properties in canvas context
+        context.font = `${fontSize}px GothicB`;
 
-        // Calculate the width of the text
+        // Measure text width
         let textWidth = context.measureText(text).width;
 
-        // Adjust font size until text fits within the maximum width
+        // Adjust font size to fit within the maxWidth constraint
         while (textWidth > maxWidth && fontSize > minFontSize) {
-            fontSize -= 2; // Decrease font size
-            context.font = `${fontSize}px GothicB`; // Update the font size in the context
-            textWidth = context.measureText(text).width; // Measure the new text width
+            fontSize -= 2;
+            context.font = `${fontSize}px GothicB`; // Update font size in context
+            textWidth = context.measureText(text).width;
         }
-        
-        // Apply new font size
+
+        // Calculate proportional letter spacing based on the font size
+        const defaultFontSize = 36; // The base font size for desktop
+        const defaultLetterSpacing = 6; // The default letter spacing for desktop
+
+        // Calculate new letter spacing relative to the base size
+        const newLetterSpacing = (fontSize / defaultFontSize) * defaultLetterSpacing;
+
+        // Apply the calculated font size and letter spacing
         outputText.style.fontSize = fontSize + 'px';
+        outputText.style.letterSpacing = newLetterSpacing + 'px';
     }
 
-    // Update output text and font size when the user types
-    userInput.addEventListener('input', function() {
-        const text = userInput.value.trim(); // Trim whitespace from input
-        outputText.innerHTML = text || defaultOutput; // Display user input or default text
-        adjustFontSize(outputText.innerHTML); // Adjust font size
-    });
+    // Function to debounce input handling for better performance
+    function debounce(func, delay) {
+        let timeout;
+        return function(...args) {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
+
+    // Update output text and adjust font size and letter spacing based on user input
+    userInput.addEventListener('input', debounce(function() {
+        const text = userInput.value.trim();
+        outputText.innerHTML = text || defaultOutput;
+        adjustFontSizeAndSpacing(outputText.innerHTML);
+    }, 300)); // Debounce with a 300ms delay for smoother updates
 
     // Initial adjustment for default output text
-    adjustFontSize(outputText.innerHTML);
+    adjustFontSizeAndSpacing(outputText.innerHTML);
 });
