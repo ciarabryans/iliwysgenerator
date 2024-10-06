@@ -1,13 +1,13 @@
 @font-face {
-    font-family: 'Century Gothic';
-    src: url('fonts/CenturyGothic.ttf') format('truetype');
+    font-family: 'GothicB';
+    src: url('fonts/GOTHICB.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 body, html {
-    font-family: 'Century Gothic', Arial, sans-serif; /* Fallback */
-    background-color: #FFB6C1; /* Pink background for the entire page */
+    font-family: 'GothicB', Arial, sans-serif; /* Fallback */
+    background-color: #EE9EB5; /* Pink background for the entire page */
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -17,15 +17,59 @@ body, html {
     flex-direction: column; /* Stack items vertically */
 }
 
+.container {
+    text-align: center; /* Center align text within the container */
+    width: 100%; /* Ensure the container takes full width */
+}
+
+.output-container {
+    margin-bottom: 20px; /* Space between output and input */
+    width: 100%; /* Ensure it takes full width */
+    display: flex;
+    justify-content: center; /* Center content */
+}
+
 #outputText {
-    font-family: 'Century Gothic', Arial, sans-serif; /* Apply the font */
+    font-family: 'GothicB', Arial, sans-serif; /* Apply the custom font */
     font-weight: bold; /* Make sure it is bold */
-    font-size: 3em;
+    font-size: 48px; /* Default max font size */
     padding: 20px;
     color: #ffffff;
     background-color: transparent; /* Make background transparent */
-    text-align: center;
-    width: 90%;
-    line-height: 1.2;
+    text-align: center; /* Center text */
+    max-width: 100%; /* Prevent overflow */
+    line-height: 1.2; /* Line height for readability */
     text-transform: uppercase; /* Convert text to uppercase */
+    overflow-wrap: break-word; /* Allow long words to wrap */
+    word-wrap: break-word; /* Fallback for older browsers */
+    white-space: normal; /* Allow text to wrap */
+    letter-spacing: 5px; /* Adjust letter spacing */
+    margin: 0 auto; /* Center the text block */
+}
+
+#userInput {
+    width: 100%; /* Take full width */
+    max-width: 450px; /* Set max width */
+    height: 60px; /* Set a fixed height */
+    font-size: 24px; /* Font size for input */
+    padding: 10px; /* Padding inside the textarea */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Optional: Rounded corners for a softer look */
+    outline: none; /* Remove outline */
+    resize: none; /* Disable resizing */
+    background-color: #ffffff; /* Plain white background for the textarea */
+    box-shadow: none; /* Remove any shadow */
+    font-family: 'GothicB', Arial, sans-serif; /* Apply custom font */
+}
+
+#userInput::placeholder {
+    color: rgba(255, 255, 255, 0.5); /* Light color for the placeholder text */
+    opacity: 1; /* Ensure full opacity */
+    font-style: italic; /* Optional: make the placeholder text italic */
+}
+
+.screenshot-text {
+    font-size: 14px; /* Smaller font size for the screenshot text */
+    color: #333; /* Darker color for visibility */
+    margin-top: 5px; /* Space between textarea and screenshot text */
 }
