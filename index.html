@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iliwys Generator</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Make sure you have your CSS file -->
-    <script src="scripts.js" defer></script> <!-- Load JavaScript after DOM is ready -->
+    <link rel="stylesheet" href="styles.css">
+    <title>ILIWYS Generator</title>
 </head>
 <body>
-    <div id="outputContainer">
-        <div id="outputText">FYI this is a rave. there will be no queuing for days before the show. there will be no front of line passes. zero exclusivity. all tickets the same - no guaranteed front row. no holding spaces inside or outside venue.</div>
+    <div class="container">
+        <div class="output-container">
+            <div id="outputText"></div>
+        </div>
+        <textarea id="userInput" placeholder="start typing something obnoxious" aria-label="Text input"></textarea>
+        <div class="screenshot-text">Screenshot to save</div>
     </div>
-    <textarea id="userInput" placeholder="Type your text here..." aria-label="Text input"></textarea>
-    <p style="text-align: center; margin-top: 10px;">screenshot to save</p>
+    <script src="scripts.js"></script>
 </body>
 </html>

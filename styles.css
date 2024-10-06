@@ -37,13 +37,13 @@ body, html {
     color: #ffffff;
     background-color: transparent; /* Make background transparent */
     text-align: center; /* Center text */
-    max-width: 100%; /* Prevent overflow */
+    max-width: 94%; /* Prevent overflow */
     line-height: 1.2; /* Line height for readability */
     text-transform: uppercase; /* Convert text to uppercase */
     overflow-wrap: break-word; /* Allow long words to wrap */
     word-wrap: break-word; /* Fallback for older browsers */
     white-space: normal; /* Allow text to wrap */
-    letter-spacing: 5px; /* Adjust letter spacing */
+    letter-spacing: 8px; /* Adjust letter spacing */
     margin: 0 auto; /* Center the text block */
 }
 
@@ -51,22 +51,22 @@ body, html {
     width: 100%; /* Take full width */
     max-width: 450px; /* Set max width */
     height: 60px; /* Set a fixed height */
-    font-size: 24px; /* Font size for input */
+    font-size: 14px; /* Font size for input */
     padding: 10px; /* Padding inside the textarea */
     border: none; /* Remove default border */
-    border-radius: 5px; /* Optional: Rounded corners for a softer look */
+    border-radius: 5px; /* Rounded corners */
     outline: none; /* Remove outline */
     resize: none; /* Disable resizing */
-    background-color: #ffffff; /* Plain white background for the textarea */
-    box-shadow: none; /* Remove any shadow */
-    font-family: 'GothicB', Arial, sans-serif; /* Apply custom font */
+    background-color: #ffffff; /* White background for the textarea */
+    color: #333; /* Text color */
 }
 
+/* Placeholder styling (if needed) */
 #userInput::placeholder {
-    color: rgba(255, 255, 255, 0.5); /* Light color for the placeholder text */
-    opacity: 1; /* Ensure full opacity */
-    font-style: italic; /* Optional: make the placeholder text italic */
+    color: #999; /* Light gray color for the placeholder */
+    opacity: 1; /* Show the placeholder */
 }
+
 
 .screenshot-text {
     font-size: 14px; /* Smaller font size for the screenshot text */
