@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Century Gothic';
+    src: url('fonts/CenturyGothic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, html {
+    font-family: 'Century Gothic', Arial, sans-serif; /* Fallback */
+    background-color: #FFB6C1; /* Pink background for the entire page */
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Stack items vertically */
+}
+
+#outputText {
+    font-family: 'Century Gothic', Arial, sans-serif; /* Apply the font */
+    font-weight: bold; /* Make sure it is bold */
+    font-size: 3em;
+    padding: 20px;
+    color: #ffffff;
+    background-color: transparent; /* Make background transparent */
+    text-align: center;
+    width: 90%;
+    line-height: 1.2;
+    text-transform: uppercase; /* Convert text to uppercase */
+}
