@@ -51,7 +51,7 @@ body, html {
 
 #userInput {
     width: 90%; /* Set width to 90% for mobile responsiveness */
-    width: 450px; /* Set a maximum width */
+    min-width: 450px; /* Set a maximum width */
     height: 60px; /* Set a fixed height */
     font-size: 14px; /* Font size for input */
     padding: 18px 0; /* Add padding to center text vertically */
