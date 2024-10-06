@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const userInput = document.getElementById('userInput');
 
     // Set default output message with line break
-    const defaultOutput = "Genuinely laughable<br>iliwys text generator";
+    const defaultOutput = "Genuinely laughable<br>iliwys meme generator";
     outputText.innerHTML = defaultOutput;
 
     // Create a single canvas for text measurement
