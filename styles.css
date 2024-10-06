@@ -95,7 +95,7 @@ body, html {
 
 @media (max-width: 600px) {
     #outputText {
-        font-size: 18px; /* Smaller font size for mobile */
+        font-size: 16px; /* Smaller font size for mobile */
         letter-spacing: 8px; /* Reduce letter spacing for mobile */
         padding: 10px; /* Reduce padding */
     }
