@@ -20,10 +20,11 @@ body, html {
 .container {
     text-align: center; /* Center align text within the container */
     width: 100%; /* Ensure the container takes full width */
+    padding-top: 50px; /* Add some top padding to lower the content */
 }
 
 .output-container {
-    margin-bottom: 20px; /* Space between output and input */
+    margin-bottom: 10px; /* Reduce space between output and input */
     width: 100%; /* Ensure it takes full width */
     display: flex;
     justify-content: center; /* Center content */
@@ -48,25 +49,29 @@ body, html {
 }
 
 #userInput {
-    width: 100%; /* Take full width */
-    max-width: 450px; /* Set max width */
+    width: 450px; /* Set a fixed width */
     height: 60px; /* Set a fixed height */
     font-size: 14px; /* Font size for input */
-    padding: 10px; /* Padding inside the textarea */
+    padding: 18px 0; /* Add padding to center text vertically */
     border: none; /* Remove default border */
     border-radius: 5px; /* Rounded corners */
     outline: none; /* Remove outline */
     resize: none; /* Disable resizing */
     background-color: #ffffff; /* White background for the textarea */
     color: #333; /* Text color */
+    text-align: center; /* Center text horizontally */
+    line-height: 1; /* Set line height to 1 for normal text spacing */
+    margin-top: 10px; /* Space between output and input */
 }
 
-/* Placeholder styling (if needed) */
+/* Placeholder styling */
 #userInput::placeholder {
     color: #999; /* Light gray color for the placeholder */
     opacity: 1; /* Show the placeholder */
+    text-align: center; /* Center placeholder text horizontally */
+    font-size: 14px; /* Set the placeholder font size to 14px */
+    line-height: 60px; /* Match line-height with height for vertical centering */
 }
-
 
 .screenshot-text {
     font-size: 14px; /* Smaller font size for the screenshot text */
