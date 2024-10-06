@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function adjustFontSize(text) {
         const maxWidth = window.innerWidth * 0.9; // Set maximum width to 90% of the viewport
-        let fontSize = 40; // Set default maximum font size
-        const minFontSize = 24; // Minimum font size
+        let fontSize = 36; // Set default maximum font size
+        const minFontSize = 20; // Minimum font size
 
         // Create a temporary canvas to measure text width
         const canvas = document.createElement('canvas');

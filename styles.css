@@ -34,7 +34,7 @@ body, html {
 #outputText {
     font-family: 'GothicB', Arial, sans-serif; /* Apply the custom font */
     font-weight: bold; /* Make sure it is bold */
-    font-size: 48px; /* Default max font size */
+    font-size: 36px; /* Default max font size */
     padding: 20px;
     color: #ffffff;
     background-color: transparent; /* Make background transparent */
@@ -45,7 +45,7 @@ body, html {
     overflow-wrap: break-word; /* Allow long words to wrap */
     word-wrap: break-word; /* Fallback for older browsers */
     white-space: normal; /* Allow text to wrap */
-    letter-spacing: 8px; /* Adjust letter spacing */
+    letter-spacing: 6px; /* Adjust letter spacing */
     margin: 0 auto; /* Center the text block */
 }
 
@@ -84,8 +84,8 @@ body, html {
 /* Media Query for Mobile Devices */
 @media (max-width: 600px) {
     #outputText {
-        font-size: 32px; /* Smaller font size for mobile */
-        letter-spacing: 4px; /* Reduce letter spacing for mobile */
+        font-size: 20px; /* Smaller font size for mobile */
+        letter-spacing: 8px; /* Reduce letter spacing for mobile */
         padding: 10px; /* Reduce padding */
     }
 
