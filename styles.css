@@ -6,21 +6,24 @@
 }
 
 body, html {
-    font-family: 'GothicB', Arial, sans-serif; /* Fallback */
-    background-color: #EE9EB5; /* Pink background for the entire page */
+    font-family: 'GothicB', Arial, sans-serif;
+    background-color: #EE9EB5;
     margin: 0;
     padding: 0;
-    height: 100vh; /* Full height of viewport */
+    min-height: 100vh; /* Allow body to expand with content */
     display: flex;
-    justify-content: center; /* Center content horizontally */
-    align-items: center; /* Center content vertically */
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column; /* Stack elements vertically */
 }
 
 .container {
-    text-align: center; /* Center align text within the container */
-    width: 100%; /* Ensure the container takes full width */
-    padding: 20px; /* Add padding to give breathing space */
+    flex: 1; /* Allow container to grow and fill available space */
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    text-align: center;
+    width: 100%;
+    padding: 20px; /* Add padding for breathing space */
     box-sizing: border-box; /* Include padding in width calculations */
 }
 
@@ -31,22 +34,31 @@ body, html {
     justify-content: center; /* Center content */
 }
 
+.disclaimer {
+    text-align: center;
+    margin: 20px 0; /* Add margin to top and bottom */
+    font-size: 12px;
+    color: #ffcedb;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 #outputText {
-    font-family: 'GothicB', Arial, sans-serif; /* Apply the custom font */
-    font-weight: bold; /* Make sure it is bold */
-    font-size: 36px; /* Default max font size */
+    font-family: 'GothicB', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 36px;
     padding: 20px;
     color: #ffffff;
-    background-color: transparent; /* Make background transparent */
-    text-align: center; /* Center text */
-    max-width: 94%; /* Prevent overflow */
-    line-height: 1.2; /* Line height for readability */
-    text-transform: uppercase; /* Convert text to uppercase */
-    overflow-wrap: break-word; /* Allow long words to wrap */
-    word-wrap: break-word; /* Fallback for older browsers */
-    white-space: normal; /* Allow text to wrap */
-    letter-spacing: 10px; /* Adjust letter spacing */
-    margin: 0 auto; /* Center the text block */
+    background-color: transparent;
+    text-align: center;
+    max-width: 94%;
+    line-height: 1.2;
+    text-transform: uppercase;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+    letter-spacing: 10px;
+    margin: 0 auto;
 }
 
 #userInput {
@@ -66,7 +78,6 @@ body, html {
     margin-top: 10px; /* Space between output and input */
 }
 
-/* Placeholder styling */
 #userInput::placeholder {
     color: #999; /* Light gray color for the placeholder */
     opacity: 1; /* Show the placeholder */
@@ -80,9 +91,8 @@ body, html {
     color: #fff; /* Darker color for visibility */
     margin-top: 5px; /* Space between textarea and screenshot text */
     font-style: italic;
-}
+    margin-top: 10px;
 
-/* Media Query for Mobile Devices */
 @media (max-width: 600px) {
     #outputText {
         font-size: 18px; /* Smaller font size for mobile */
@@ -109,4 +119,3 @@ body, html {
         min-height: 100vh; /* Ensure at least full viewport height */
     }
 }
-
