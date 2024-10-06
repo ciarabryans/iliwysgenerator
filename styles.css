@@ -50,7 +50,8 @@ body, html {
 }
 
 #userInput {
-    width: 450px; /* Set a fixed width */
+    width: 90%; /* Set width to 90% for mobile responsiveness */
+    max-width: 450px; /* Set a maximum width */
     height: 60px; /* Set a fixed height */
     font-size: 14px; /* Font size for input */
     padding: 18px 0; /* Add padding to center text vertically */
@@ -89,10 +90,12 @@ body, html {
     }
 
     #userInput {
-        width: 90%; /* Take up more width on mobile */
+        width: 90%; /* Make it responsive */
+        max-width: 90%; /* Ensure it doesn't exceed screen size */
         height: 50px; /* Slightly smaller height */
         font-size: 14px; /* Keep font size */
         padding: 10px 0; /* Reduce padding */
+        margin: 0 auto; /* Center the input field */
     }
 
     .container {
