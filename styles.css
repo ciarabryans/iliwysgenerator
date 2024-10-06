@@ -10,28 +10,28 @@ body, html {
     background-color: #EE9EB5;
     margin: 0;
     padding: 0;
-    min-height: 100vh; /* Allow body to expand with content */
+    min-height: 100vh;
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
+    flex-direction: column;
 }
 
 .container {
-    flex: 1; /* Allow container to grow and fill available space */
-    display: flex; /* Enable flexbox */
-    flex-direction: column; /* Stack items vertically */
-    justify-content: center; /* Center vertically */
-    align-items: center; /* Center horizontally */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     width: 100%;
-    padding: 20px; /* Add padding for breathing space */
-    box-sizing: border-box; /* Include padding in width calculations */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .output-container {
-    margin-bottom: 10px; /* Reduce space between output and input */
-    width: 100%; /* Ensure it takes full width */
+    margin-bottom: 10px;
+    width: 100%;
     display: flex;
-    justify-content: center; /* Center content */
+    justify-content: center;
 }
 
 .disclaimer {
@@ -39,12 +39,19 @@ body, html {
     margin-top: 20px;
     font-size: 12px;
     color: #ffcedb;
-    position: fixed; /* Make it fixed */
-    bottom: 0; /* Position it at the bottom */
-    left: 0; /* Align to the left */
-    right: 0; /* Stretch to the right */
-    padding: 10px; /* Add some padding */
-    z-index: 1000; /* Ensure it stays on top of other content */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.disclaimer a {
+    color: #ffcedb;
+}
+.disclaimer a:hover {
+    color: #fff;
 }
 
 #outputText {
@@ -66,60 +73,61 @@ body, html {
 }
 
 #userInput {
-    width: 90%; /* Set width to 90% for mobile responsiveness */
-    max-width: 450px; /* Set a maximum width */
-    height: 60px; /* Set a fixed height */
-    font-size: 14px; /* Font size for input */
-    padding: 18px 0; /* Add padding to center text vertically */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    outline: none; /* Remove outline */
-    resize: none; /* Disable resizing */
-    background-color: #ffffff; /* White background for the textarea */
-    color: #333; /* Text color */
-    text-align: center; /* Center text horizontally */
-    line-height: 1; /* Set line height to 1 for normal text spacing */
-    margin-top: 10px; /* Space between output and input */
+    width: 90%;
+    max-width: 450px;
+    height: 60px;
+    font-size: 14px;
+    padding: 18px 0;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    resize: none;
+    background-color: #ffffff;
+    color: #333;
+    text-align: center;
+    line-height: 1;
+    margin-top: 10px;
 }
 
 #userInput::placeholder {
-    color: #999; /* Light gray color for the placeholder */
-    opacity: 1; /* Show the placeholder */
-    text-align: center; /* Center placeholder text horizontally */
-    font-size: 14px; /* Set the placeholder font size to 14px */
-    line-height: 60px; /* Match line-height with height for vertical centering */
+    color: #999;
+    opacity: 1;
+    text-align: center;
+    font-size: 14px;
+    line-height: 60px;
 }
 
 .screenshot-text {
-    font-size: 14px; /* Smaller font size for the screenshot text */
-    color: #fff; /* Darker color for visibility */
-    margin-top: 5px; /* Space between textarea and screenshot text */
+    font-size: 14px;
+    color: #fff;
+    margin-top: 5px;
     font-style: italic;
     margin-top: 10px;
+}
 
 @media (max-width: 600px) {
     #outputText {
-        font-size: 16px; /* Smaller font size for mobile */
-        letter-spacing: 8px; /* Reduce letter spacing for mobile */
-        padding: 10px; /* Reduce padding */
+        font-size: 16px;
+        letter-spacing: 8px;
+        padding: 10px;
     }
 
     #userInput {
-        width: 90%; /* Ensure it takes 90% of the screen width */
-        max-width: 90%; /* Make the max width 90% */
-        height: 50px; /* Slightly smaller height */
-        font-size: 14px; /* Keep font size */
-        padding: 10px 0; /* Reduce padding */
-        margin: 30px auto 0; /* Increase top margin for extra space between output and input */
+        width: 90%;
+        max-width: 90%;
+        height: 50px;
+        font-size: 14px;
+        padding: 10px 0;
+        margin: 30px auto 0;
     }
 
     .container {
-        padding-top: 20px; /* Less top padding for mobile */
-        margin: 0 auto; /* Center the container horizontally */
+        padding-top: 20px;
+        margin: 0 auto;
     }
 
     body, html {
-        height: auto; /* Allow height to adjust to content */
-        min-height: 100vh; /* Ensure at least full viewport height */
+        height: auto;
+        min-height: 100vh;
     }
 }
