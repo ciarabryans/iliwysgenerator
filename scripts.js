@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function adjustFontSizeAndSpacing(text) {
         const maxWidth = window.innerWidth * 0.9; // Set maximum width to 90% of the viewport
         let fontSize = 36; // Default maximum font size
-        const minFontSize = 20; // Minimum font size
+        const minFontSize = 18; // Minimum font size set to 18px
 
         // Set initial font properties in canvas context
         context.font = `${fontSize}px GothicB`;
@@ -24,21 +24,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Adjust font size to fit within the maxWidth constraint
         while (textWidth > maxWidth && fontSize > minFontSize) {
-            fontSize -= 2;
+            fontSize -= 2; // Decrease font size by 2px
             context.font = `${fontSize}px GothicB`; // Update font size in context
-            textWidth = context.measureText(text).width;
+            textWidth = context.measureText(text).width; // Re-measure text width
         }
 
         // Calculate proportional letter spacing based on the font size
         const defaultFontSize = 36; // The base font size for desktop
-        const defaultLetterSpacing = 10; // Changed default letter spacing to 10px
+        const defaultLetterSpacing = 10; // Default letter spacing set to 10px
 
         // Calculate new letter spacing relative to the base size
         const newLetterSpacing = (fontSize / defaultFontSize) * defaultLetterSpacing;
 
         // Apply the calculated font size and letter spacing
-        outputText.style.fontSize = fontSize + 'px';
-        outputText.style.letterSpacing = newLetterSpacing + 'px';
+        outputText.style.fontSize = fontSize + 'px'; // Set output text font size
+        outputText.style.letterSpacing = newLetterSpacing + 'px'; // Set letter spacing
     }
 
     // Function to debounce input handling for better performance
@@ -52,11 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update output text and adjust font size and letter spacing based on user input
     userInput.addEventListener('input', debounce(function() {
-        const text = userInput.value; // Remove the .trim() to allow line breaks
+        const text = userInput.value; // Get user input text
         outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput; // Replace newlines with <br>
-        adjustFontSizeAndSpacing(outputText.innerHTML);
+        adjustFontSizeAndSpacing(outputText.innerHTML); // Adjust font size and spacing
     }, 300)); // Debounce with a 300ms delay for smoother updates
 
     // Initial adjustment for default output text
-    adjustFontSizeAndSpacing(outputText.innerHTML);
+    adjustFontSizeAndSpacing(outputText.innerHTML); // Adjust for initial output
 });
