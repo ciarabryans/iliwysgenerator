@@ -94,13 +94,8 @@ body, html {
         max-width: 90%; /* Make the max width 90% */
         height: 50px; /* Slightly smaller height */
         font-size: 14px; /* Keep font size */
-        padding: 0; /* Remove internal padding */
+        padding: 10px 0; /* Reduce padding */
         margin: 30px auto 0; /* Increase top margin for extra space between output and input */
-        line-height: 50px; /* Match the height of the textarea for vertical centering */
-    }
-
-    #userInput::placeholder {
-        line-height: 50px; /* Match line-height to the height of the text area */
     }
 
     .container {
@@ -113,5 +108,4 @@ body, html {
         min-height: 100vh; /* Ensure at least full viewport height */
     }
 }
-
 
