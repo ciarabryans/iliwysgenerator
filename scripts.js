@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function adjustFontSizeAndSpacing(text) {
         const maxWidth = window.innerWidth * 0.9; // Set maximum width to 90% of the viewport
         let fontSize = 36; // Default maximum font size
-        const minFontSize = 16; // Minimum font size
+        const minFontSize = 20; // Minimum font size
 
         // Set initial font properties in canvas context
         context.font = `${fontSize}px GothicB`;
