@@ -10,17 +10,18 @@ body, html {
     background-color: #EE9EB5; /* Pink background for the entire page */
     margin: 0;
     padding: 0;
-    height: 100vh;
+    height: 100vh; /* Full height of viewport */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
     flex-direction: column; /* Stack items vertically */
 }
 
 .container {
     text-align: center; /* Center align text within the container */
     width: 100%; /* Ensure the container takes full width */
-    padding-top: 50px; /* Add some top padding to lower the content */
+    padding: 20px; /* Add padding to give breathing space */
+    box-sizing: border-box; /* Include padding in width calculations */
 }
 
 .output-container {
@@ -96,5 +97,11 @@ body, html {
 
     .container {
         padding-top: 20px; /* Less top padding for mobile */
+        margin: 0 auto; /* Center the container horizontally */
+    }
+
+    body, html {
+        height: auto; /* Allow height to adjust to content */
+        min-height: 100vh; /* Ensure at least full viewport height */
     }
 }
