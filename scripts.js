@@ -116,7 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update output text and adjust font size based on user input
     userInput.addEventListener('input', debounce(function() {
-        const text = userInput.value; // Get user input text
+        let text = userInput.value; // Get user input text
+        if (text.length > 378) {
+            text = text.slice(0, 378); // Truncate to 378 characters
+        }
         const formattedText = text.replace(/\n/g, '<br>'); // Replace newlines with <br>
 
         // Check the current theme and update corresponding output text
