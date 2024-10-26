@@ -134,7 +134,16 @@ body, #outputText {
     font-size: 30px; /* Font size */
     text-align: center; /* Center text */
     text-transform: uppercase;
-    letter-spacing: 10px;;
+    letter-spacing: 10px;
+    word-wrap: break-word; /* Forces long words to break */
+    overflow-wrap: break-word; /* For better browser compatibility */
+    white-space: normal; /* Ensures normal wrapping behavior */
+    text-align: center; /* Centers the text */
+    overflow: hidden; /* Prevents overflow */
+    width: 100%; /* Adjusts to the container width */
+    height: auto;
+    }
+    
 }
 
 /* Default output text styles */
