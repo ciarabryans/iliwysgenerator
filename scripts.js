@@ -111,11 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
             resetDefaultThemeStyles();  // Hard reset styles for default theme
         }
     }
-
     toggleBox.addEventListener('change', function() {
         boxVisible = toggleBox.checked;
         if (activeTheme === 'selftitled-theme') {
-            selfTitledContainer.classList.toggle('hide-border', !boxVisible);
+            selfTitledContainer.classList.toggle('expanded', !boxVisible);
             const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
             selfTitledOutputText.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
         }

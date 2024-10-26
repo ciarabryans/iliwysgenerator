@@ -19,10 +19,21 @@ body.selftitled-theme #toggleBoxContainer {
     display: block; /* Make the checkbox visible */
 }
 
+
 /* Hide the box border and glow when toggled off */
 .self-titled-container.hide-border {
     border: none;
     box-shadow: none;
+}
+
+/* Expanded container without box border or glow */
+.self-titled-container.expanded {
+    width: 90%; /* Expand width */
+    max-width: 100%;
+    border: none; /* Remove border */
+    box-shadow: none; /* Remove shadow/glow */
+    justify-content: center;
+    animation: none; /* Stop pulsing animation if applied */
 }
 
 
