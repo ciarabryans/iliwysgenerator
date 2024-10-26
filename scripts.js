@@ -69,10 +69,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function resetDefaultThemeStyles() {
-        outputText.style.fontSize = '36px';  // Directly set to baseline 36px for default theme
+        outputText.style.fontSize = '36px';  
         outputText.style.letterSpacing = '10px';
         outputText.style.lineHeight = '1.2';
-        outputText.innerHTML = defaultOutput; // Reset to default output text
+        outputText.innerHTML = defaultOutput; 
     }
 
     userInput.addEventListener('input', debounce(function() {
@@ -108,16 +108,37 @@ document.addEventListener('DOMContentLoaded', function() {
             selfTitledContainer.style.display = 'none';
             defaultOutputContainer.style.display = 'flex';
             toggleBoxContainer.style.display = 'none'; 
-            resetDefaultThemeStyles();  // Hard reset styles for default theme
+            resetDefaultThemeStyles();  
         }
     }
+
     toggleBox.addEventListener('change', function() {
         boxVisible = toggleBox.checked;
-        if (activeTheme === 'selftitled-theme') {
-            selfTitledContainer.classList.toggle('expanded', !boxVisible);
-            const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
-            selfTitledOutputText.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
+        const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
+
+        if (!boxVisible) {
+            selfTitledContainer.style.width = '100%';
+            selfTitledContainer.style.height = 'auto';
+            selfTitledContainer.style.overflow = 'visible';
+            selfTitledContainer.style.boxShadow = 'none';
+            selfTitledContainer.style.border = 'none';
+
+            // Remove pulsing glow effect
+            selfTitledContainer.style.animation = 'none';
+            selfTitledContainer.classList.add('no-fade');
+        } else {
+            selfTitledContainer.style.width = '300px';
+            selfTitledContainer.style.height = '450px';
+            selfTitledContainer.style.overflow = 'hidden';
+            selfTitledContainer.style.boxShadow = ''; 
+            selfTitledContainer.style.border = '2px solid #ffffff'; 
+
+            // Reapply pulsing glow effect
+            selfTitledContainer.style.animation = 'pulse-glow 1.5s infinite';
+            selfTitledContainer.classList.remove('no-fade');
         }
+
+        selfTitledOutputText.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
     });
 
     document.querySelectorAll('.color-circle').forEach(button => {
