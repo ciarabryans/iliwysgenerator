@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const defaultOutputContainer = document.getElementById('defaultOutputContainer');
     const selfTitledContainer = document.getElementById('selfTitledContainer');
     const defaultOutput = "Genuinely&nbsp;Laughable<br>iliwys meme generator";
-    const defaultSelfTitledText = "Self Titled Better Than Notes LOL"; // Default text for self-titled theme
+    const defaultSelfTitledText = "Self Titled Better Than Notes LOL";
     outputText.innerHTML = defaultOutput;
 
     let activeTheme = 'default-theme';
@@ -17,8 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = activeTheme === 'selftitled-theme' ? selfTitledContainer : defaultOutputContainer;
         const maxWidth = container.clientWidth * 0.95;
         const maxHeight = container.clientHeight * 0.95;
-
-        // Set default font size based on active theme and placeholder condition
         let fontSize = (activeTheme === 'selftitled-theme' && text === defaultSelfTitledText) ? 40 : 36;
         const minFontSize = 12;
 
@@ -27,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let lineCount = (text.match(/\n/g) || []).length + 1;
         let textHeight = fontSize * lineCount * 1.2;
 
-        // Only apply resizing if it's not the self-titled default placeholder text
         if (!(activeTheme === 'selftitled-theme' && text === defaultSelfTitledText)) {
             while ((textWidth > maxWidth || textHeight > maxHeight) && fontSize > minFontSize) {
                 fontSize -= 1;
@@ -70,10 +67,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (activeTheme === 'selftitled-theme') {
             const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
             selfTitledOutputText.innerHTML = text || defaultSelfTitledText;
-            adjustFontSizeAndSpacing(text || defaultSelfTitledText); // Ensure resizing applies to default text too
+            adjustFontSizeAndSpacing(text || defaultSelfTitledText);
         } else {
             outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
-            adjustFontSizeAndSpacing(text || defaultOutput); // Ensure resizing applies to default text
+            adjustFontSizeAndSpacing(text || defaultOutput);
         }
     }, 300));
 
@@ -90,6 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function switchTheme(theme) {
         themeStylesheet.href = themes[theme];
         activeTheme = theme;
+
+        // Set theme-specific class on body
+        document.body.className = theme;
 
         if (theme === 'selftitled-theme') {
             selfTitledContainer.style.display = 'flex';

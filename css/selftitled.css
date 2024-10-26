@@ -153,3 +153,11 @@ body, html {
 .disclaimer a:hover {
     color: #ffffff;
 }
+
+/* Self-titled theme disclaimer adjustment */
+body.selftitled-theme .disclaimer {
+    position: absolute;
+    bottom: -30px; /* Adjust as needed */
+    font-size: 11px;
+    color: #666666;
+}
