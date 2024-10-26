@@ -5,6 +5,30 @@
     font-style: normal;
 }
 
+/* Show the checkbox only in the self-titled theme */
+#toggleBoxContainer {
+    display: none; /* Hide by default */
+    margin-top: 10px;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Show the toggle box checkbox only in self-titled theme */
+body.selftitled-theme #toggleBoxContainer {
+    display: block; /* Make the checkbox visible */
+}
+
+/* Hide the box border and glow when toggled off */
+.self-titled-container.hide-border {
+    border: none;
+    box-shadow: none;
+}
+
+
+/* Self-titled container and other styling as before */
+
+
 body, html {
     font-family: 'GOTHIC', Arial, sans-serif;
     background-color: #000000; /* Black background */

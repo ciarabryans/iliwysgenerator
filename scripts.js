@@ -4,11 +4,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeStylesheet = document.getElementById('themeStylesheet');
     const defaultOutputContainer = document.getElementById('defaultOutputContainer');
     const selfTitledContainer = document.getElementById('selfTitledContainer');
+    const toggleBoxContainer = document.getElementById('toggleBoxContainer');
+    const toggleBox = document.getElementById('toggleBox');
     const defaultOutput = "Genuinely&nbsp;Laughable<br>iliwys meme generator";
     const defaultSelfTitledText = "Self Titled Better Than Notes LOL";
-    outputText.innerHTML = defaultOutput;
-
+    let boxVisible = true;
     let activeTheme = 'default-theme';
+    outputText.innerHTML = defaultOutput;
 
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
@@ -54,6 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function formatTextForSelfTitled(text) {
+        return boxVisible ? text : `// ${text} //`;
+    }
+
     function debounce(func, delay) {
         let timeout;
         return function(...args) {
@@ -62,11 +68,18 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
+    function resetDefaultThemeStyles() {
+        outputText.style.fontSize = '36px';  // Directly set to baseline 36px for default theme
+        outputText.style.letterSpacing = '10px';
+        outputText.style.lineHeight = '1.2';
+        outputText.innerHTML = defaultOutput; // Reset to default output text
+    }
+
     userInput.addEventListener('input', debounce(function() {
         const text = userInput.value;
         if (activeTheme === 'selftitled-theme') {
             const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
-            selfTitledOutputText.innerHTML = text || defaultSelfTitledText;
+            selfTitledOutputText.innerHTML = formatTextForSelfTitled(text || defaultSelfTitledText);
             adjustFontSizeAndSpacing(text || defaultSelfTitledText);
         } else {
             outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
@@ -74,36 +87,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 300));
 
-    adjustFontSizeAndSpacing(outputText.innerHTML);
-
     const themes = {
         'default-theme': 'css/iliwys-default.css',
         'selftitled-theme': 'css/selftitled.css',
-        'abiiors-theme': 'css/abiior.css',
-        'noacf-theme': 'css/noacf.css',
-        'bfiafl-theme': 'css/bfiafl.css'
     };
 
     function switchTheme(theme) {
         themeStylesheet.href = themes[theme];
         activeTheme = theme;
-
-        // Set theme-specific class on body
         document.body.className = theme;
 
         if (theme === 'selftitled-theme') {
             selfTitledContainer.style.display = 'flex';
             defaultOutputContainer.style.display = 'none';
+            toggleBoxContainer.style.display = 'block'; 
             const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
-            selfTitledOutputText.innerHTML = userInput.value || defaultSelfTitledText;
+            selfTitledOutputText.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
             adjustFontSizeAndSpacing(userInput.value || defaultSelfTitledText);
         } else {
             selfTitledContainer.style.display = 'none';
             defaultOutputContainer.style.display = 'flex';
-            outputText.innerHTML = userInput.value.replace(/\n/g, '<br>') || defaultOutput;
-            adjustFontSizeAndSpacing(userInput.value || defaultOutput);
+            toggleBoxContainer.style.display = 'none'; 
+            resetDefaultThemeStyles();  // Hard reset styles for default theme
         }
     }
+
+    toggleBox.addEventListener('change', function() {
+        boxVisible = toggleBox.checked;
+        if (activeTheme === 'selftitled-theme') {
+            selfTitledContainer.classList.toggle('hide-border', !boxVisible);
+            const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
+            selfTitledOutputText.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
+        }
+    });
 
     document.querySelectorAll('.color-circle').forEach(button => {
         button.addEventListener('click', () => {
