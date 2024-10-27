@@ -20,7 +20,7 @@ body.selftitled-theme #toggleBoxContainer {
 
 /* Expanded container without box border or glow */
 .self-titled-container.expanded {
-    width: 90%; /* Expand width */
+    width: 100%; /* Expand width */
     max-width: 100%;
     border: none; /* Remove border */
     box-shadow: none; /* Remove shadow/glow */
