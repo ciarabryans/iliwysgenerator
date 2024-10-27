@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }    
 
     function formatTextForSelfTitled(text) {
-        return boxVisible ? text : `// ${text} //`;
+        return boxVisible ? text.replace(/\n/g, '<br>') : `// ${text.replace(/<br>/g, ' ')} //`;
     }
 
     function debounce(func, delay) {
@@ -78,10 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     userInput.addEventListener('input', debounce(function() {
-        const text = userInput.value;
+        const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
         if (activeTheme === 'selftitled-theme') {
-            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks));
-            adjustFontSizeAndSpacing(text || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks));
+            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
+            adjustFontSizeAndSpacing(text);
         } else {
             outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
             adjustFontSizeAndSpacing(text || defaultOutput);
@@ -98,12 +98,13 @@ document.addEventListener('DOMContentLoaded', function() {
         activeTheme = theme;
         document.body.className = theme;
 
+        const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
         if (theme === 'selftitled-theme') {
             selfTitledContainer.style.display = 'flex';
             defaultOutputContainer.style.display = 'none';
             toggleBoxContainer.style.display = 'block';
-            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : `// ${defaultSelfTitledTextNoBreaks} //`));
-            adjustFontSizeAndSpacing(userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : `// ${defaultSelfTitledTextNoBreaks} //`));
+            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
+            adjustFontSizeAndSpacing(text);
         } else {
             selfTitledContainer.style.display = 'none';
             defaultOutputContainer.style.display = 'flex';
@@ -116,13 +117,14 @@ document.addEventListener('DOMContentLoaded', function() {
         boxVisible = toggleBox.checked;
         selfTitledContainer.classList.toggle('expanded', !boxVisible);
         
+        const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
         if (!boxVisible) {
             outputTextSelfTitled.classList.add('expanded-style');
-            outputTextSelfTitled.innerHTML = `// ${defaultSelfTitledTextNoBreaks} //`;
+            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
             document.querySelector('.toggle-label').textContent = "Turn on for box";
         } else {
             outputTextSelfTitled.classList.remove('expanded-style');
-            outputTextSelfTitled.innerHTML = defaultSelfTitledTextWithBreaks;
+            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
             document.querySelector('.toggle-label').textContent = "Turn off for EP Text";
         }
     });    
