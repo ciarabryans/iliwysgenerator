@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleBox = document.getElementById('toggleBox');
     const outputTextSelfTitled = document.getElementById('outputTextSelfTitled');
     const defaultOutput = "Genuinely&nbsp;Laughable<br>iliwys meme generator";
-    const defaultSelfTitledText = "Self Titled Better Than Notes LOL";
+    const defaultSelfTitledText = "Self";
     let boxVisible = true;
     let activeTheme = 'default-theme';
     outputText.innerHTML = defaultOutput;
@@ -114,15 +114,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     toggleBox.addEventListener('change', function() {
         boxVisible = toggleBox.checked;
-        selfTitledContainer.classList.toggle('expanded', !boxVisible);
+    
         if (!boxVisible) {
+            selfTitledContainer.classList.add('expanded', 'hide-border');
             outputTextSelfTitled.classList.add('expanded-style');
         } else {
+            selfTitledContainer.classList.remove('expanded', 'hide-border');
             outputTextSelfTitled.classList.remove('expanded-style');
         }
+        
         outputTextSelfTitled.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
     });
-
+    
     document.querySelectorAll('.color-circle').forEach(button => {
         button.addEventListener('click', () => {
             switchTheme(button.id);

@@ -19,13 +19,17 @@ body.selftitled-theme #toggleBoxContainer {
 }
 
 /* Expanded container without box border or glow */
+/* Expanded container styling */
 .self-titled-container.expanded {
-    width: 100%; /* Expand width */
-    max-width: 100%;
-    border: none; /* Remove border */
-    box-shadow: none; /* Remove shadow/glow */
+    width: 90vw; /* Use viewport width for responsive sizing */
+    max-width: 95%; /* Ensures it doesn't touch screen edges */
+    height: auto; /* Remove fixed height to allow content to control height */
+    padding: 20px;
+    box-shadow: none !important; /* Ensures shadow/glow is removed */
+    border: none !important; /* Ensures border is removed */
+    margin: 0 auto; /* Center the container */
     justify-content: center;
-    animation: none; /* Stop pulsing animation if applied */
+    animation: none !important; /* Ensures pulsing animation is disabled */
 }
 
 .expanded-style {
