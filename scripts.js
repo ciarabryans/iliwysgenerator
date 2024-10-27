@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleBox = document.getElementById('toggleBox');
     const outputTextSelfTitled = document.getElementById('outputTextSelfTitled');
     const defaultOutput = "Genuinely&nbsp;Laughable<br>iliwys meme generator";
-    const defaultSelfTitledText = "Self";
+    const defaultSelfTitledText = "Go down<br>Soft sound<br>Midnight<br>Car lights";
     let boxVisible = true;
     let activeTheme = 'default-theme';
     outputText.innerHTML = defaultOutput;
