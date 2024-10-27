@@ -125,6 +125,14 @@ body, html {
     font-style: italic;
     margin-top: 10px;
 }
+#toggleBoxContainer {
+    display: none;
+}
+
+body.selftitled-theme #toggleBoxContainer {
+    display: flex; /* Shows only in Self-Titled theme */
+}
+
 
 @media (max-width: 600px) {
     #outputText {

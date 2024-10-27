@@ -27,20 +27,21 @@
         <div id="selftitled-theme" class="color-circle" style="background-color: #000;" aria-label="The 1975 self-titled theme"></div>
     </div>
 
-    <div class="toggle-box" id="toggleBoxContainer" style="display: none;">
-        <label class="switch">
-            <input type="checkbox" id="toggleBox" checked>
-            <span class="slider round"></span>
-        </label>
-        <span class="toggle-label">Turn off for EP Text</span>
-    </div>
-
     <div class="container">
         <!-- Self-titled container with pulsing glow, hidden by default -->
         <div class="self-titled-container" id="selfTitledContainer" style="display: none;">
             <div id="outputTextSelfTitled">Go down<br>Soft sound<br>Midnight<br>Car lights</div>
         </div>
-
+        
+        <div class="toggle-box" id="toggleBoxContainer">
+            <span class="toggle-label">Box</span>
+            <label class="switch">
+                <input type="checkbox" id="toggleBox" checked>
+                <span class="slider round"></span>
+            </label>
+            <span class="toggle-label">EP</span>
+        </div>
+        
         <!-- Default output text container, visible by default -->
         <div class="output-container" id="defaultOutputContainer">
             <div id="outputText"></div>

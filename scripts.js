@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeStylesheet = document.getElementById('themeStylesheet');
     const defaultOutputContainer = document.getElementById('defaultOutputContainer');
     const selfTitledContainer = document.getElementById('selfTitledContainer');
-    const toggleBoxContainer = document.getElementById('toggleBoxContainer');
     const toggleBox = document.getElementById('toggleBox');
     const outputTextSelfTitled = document.getElementById('outputTextSelfTitled');
     
@@ -56,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
             outputText.style.letterSpacing = `${adjustedLetterSpacing}px`;
             outputText.style.lineHeight = `${lineHeight}px`;
         }
-    }    
+    }
 
     function formatTextForSelfTitled(text) {
         return boxVisible ? text.replace(/\n/g, '<br>') : `// ${text.replace(/<br>/g, ' ')} //`;
@@ -118,16 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
         selfTitledContainer.classList.toggle('expanded', !boxVisible);
         
         const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
-        if (!boxVisible) {
-            outputTextSelfTitled.classList.add('expanded-style');
-            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
-            document.querySelector('.toggle-label').textContent = "Turn on for box";
-        } else {
-            outputTextSelfTitled.classList.remove('expanded-style');
-            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
-            document.querySelector('.toggle-label').textContent = "Turn off for EP Text";
-        }
-    });    
+        outputTextSelfTitled.classList.toggle('expanded-style', !boxVisible);
+        outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
+    });
 
     document.querySelectorAll('.color-circle').forEach(button => {
         button.addEventListener('click', () => {

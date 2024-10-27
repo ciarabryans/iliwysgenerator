@@ -5,12 +5,10 @@
     font-style: normal;
 }
 
-
 /* Show the toggle box checkbox only in self-titled theme */
 body.selftitled-theme #toggleBoxContainer {
     display: block; /* Make the checkbox visible */
 }
-
 
 /* Hide the box border and glow when toggled off */
 .self-titled-container.hide-border {
@@ -19,7 +17,6 @@ body.selftitled-theme #toggleBoxContainer {
 }
 
 /* Expanded container without box border or glow */
-/* Expanded container styling */
 .self-titled-container.expanded {
     width: 90vw; /* Use viewport width for responsive sizing */
     max-width: 95%; /* Ensures it doesn't touch screen edges */
@@ -45,7 +42,6 @@ body.selftitled-theme #toggleBoxContainer {
 }
 
 /* Self-titled container and other styling as before */
-
 
 body, html {
     font-family: 'GOTHIC', Arial, sans-serif;
@@ -112,7 +108,6 @@ body, html {
     background: var(--fade-overlay, linear-gradient(to top, black, transparent)); /* Use custom property */
     pointer-events: none;
 }
-
 
 /* Pulsing glow effect */
 @keyframes pulse-glow {
@@ -207,17 +202,15 @@ body.selftitled-theme .disclaimer {
 
 /* Toggle Box Container Positioning */
 #toggleBoxContainer {
-    position: absolute;
-    top: 20px;
-    right: 20px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
+    margin-bottom: 15px; /* Space above the text area */
     color: #ffffff;
     font-size: 14px;
     font-family: 'GOTHIC', Arial, sans-serif;
     font-weight: bold;
-    letter-spacing: 0.5px;
     text-transform: uppercase;
 }
 
@@ -227,6 +220,7 @@ body.selftitled-theme .disclaimer {
     display: inline-block;
     width: 44px;
     height: 22px;
+    margin: 0 10px; /* Spacing between "Box" and "EP" labels */
     background-color: #000; /* Matches self-titled dark theme */
     border: 1px solid #ffffff; /* White border for the outline */
     border-radius: 22px;
@@ -278,17 +272,17 @@ input:checked + .slider:before {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4); /* Soft black glow when ON */
 }
 
-/* Optional label styling */
+/* Label styling */
 .toggle-label {
-    color: #ffffff;
     font-size: 14px;
-    font-weight: 500;
+    color: #ffffff;
+    font-weight: bold;
     letter-spacing: 0.5px;
 }
+
 @media (max-width: 600px) {
     #outputTextSelfTitled {
         font-size: 18px; /* Adjust base font size for mobile */
         letter-spacing: 8px; /* Decrease letter spacing by 2px on mobile */
     }
 }
-
