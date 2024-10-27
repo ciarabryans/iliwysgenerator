@@ -302,4 +302,13 @@ input:checked + .slider:before {
         font-size: 18px; /* Adjust base font size for mobile */
         letter-spacing: 8px; /* Decrease letter spacing by 2px on mobile */
     }
+    /* Default padding for disclaimer in self-titled theme */
+    body.selftitled-theme .disclaimer {
+        padding-bottom: 40px; /* More space to avoid overlap */
+    }
+
+    /* Adjust padding when the box is off */
+    body.selftitled-theme.no-box .disclaimer {
+        padding-bottom: 20px; /* Less space needed without the box */
+    }
 }

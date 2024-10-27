@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeStylesheet = document.getElementById('themeStylesheet');
     const defaultOutputContainer = document.getElementById('defaultOutputContainer');
     const selfTitledContainer = document.getElementById('selfTitledContainer');
+    const toggleBoxContainer = document.getElementById('toggleBoxContainer');
     const toggleBox = document.getElementById('toggleBox');
     const outputTextSelfTitled = document.getElementById('outputTextSelfTitled');
     
@@ -109,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
             defaultOutputContainer.style.display = 'flex';
             toggleBoxContainer.style.display = 'none';
             resetDefaultThemeStyles();
+            document.body.classList.remove('no-box'); // Ensure no-box is removed in default theme
         }
     }
 
@@ -119,6 +121,13 @@ document.addEventListener('DOMContentLoaded', function() {
         const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
         outputTextSelfTitled.classList.toggle('expanded-style', !boxVisible);
         outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
+
+        // Toggle the 'no-box' class on the body based on the toggle state
+        if (!boxVisible) {
+            document.body.classList.add('no-box');
+        } else {
+            document.body.classList.remove('no-box');
+        }
     });
 
     document.querySelectorAll('.color-circle').forEach(button => {
