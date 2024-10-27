@@ -20,15 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = activeTheme === 'selftitled-theme' ? selfTitledContainer : defaultOutputContainer;
         const maxWidth = container.clientWidth * 0.95;
         const maxHeight = container.clientHeight * 0.95;
-        // Set the initial font size based on theme
-        let fontSize = (activeTheme === 'selftitled-theme' && text === defaultSelfTitledText) ? 34 : 36;
+    
+        // Set a smaller base font size for mobile screens
+        let fontSize = window.innerWidth < 600 ? 18 : 36;
         const minFontSize = 12;
-
+    
         context.font = `${fontSize}px GothicB`;
         let textWidth = context.measureText(text).width;
         let lineCount = (text.match(/\n/g) || []).length + 1;
         let textHeight = fontSize * lineCount * 1.2;
-
+    
         if (!(activeTheme === 'selftitled-theme' && text === defaultSelfTitledText)) {
             while ((textWidth > maxWidth || textHeight > maxHeight) && fontSize > minFontSize) {
                 fontSize -= 1;
@@ -37,15 +38,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 textHeight = fontSize * lineCount * 1.2;
             }
         }
-
-        const defaultFontSize = 36;
+    
+        const defaultFontSize = window.innerWidth < 600 ? 18 : 36;
         const defaultLetterSpacing = 10;
         const adjustedLetterSpacing = activeTheme === 'selftitled-theme'
             ? (fontSize / defaultFontSize) * (defaultLetterSpacing + 2)
             : (fontSize / defaultFontSize) * defaultLetterSpacing;
-
+    
         const lineHeight = fontSize * 1.2;
-
+    
         if (activeTheme === 'selftitled-theme') {
             outputTextSelfTitled.style.fontSize = `${fontSize}px`;
             outputTextSelfTitled.style.letterSpacing = `${adjustedLetterSpacing}px`;
@@ -55,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
             outputText.style.letterSpacing = `${adjustedLetterSpacing}px`;
             outputText.style.lineHeight = `${lineHeight}px`;
         }
-    }
+    }    
 
     function formatTextForSelfTitled(text) {
         return boxVisible ? text : `// ${text} //`;
