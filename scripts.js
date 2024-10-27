@@ -20,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = activeTheme === 'selftitled-theme' ? selfTitledContainer : defaultOutputContainer;
         const maxWidth = container.clientWidth * 0.95;
         const maxHeight = container.clientHeight * 0.95;
-        let fontSize = (activeTheme === 'selftitled-theme' && text === defaultSelfTitledText) ? 40 : 36;
+        // Set the initial font size based on theme
+        let fontSize = (activeTheme === 'selftitled-theme' && text === defaultSelfTitledText) ? 34 : 36;
         const minFontSize = 12;
 
         context.font = `${fontSize}px GothicB`;
