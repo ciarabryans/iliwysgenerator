@@ -283,8 +283,9 @@ input:checked + .slider:before {
 /* Mobile baseline font adjustment */
 @media (max-width: 600px) {
     #outputTextSelfTitled {
-        font-size: 18px !important; /* Force smaller font size on mobile */
-        letter-spacing: 8px;
+        font-size: 18px; /* Smaller base font size */
+        letter-spacing: calc(0.3em); /* 30% of mobile font size */
+        line-height: calc(1.2em); /* 1.2 times the mobile font size */
         padding: 10px;
     }
 }
