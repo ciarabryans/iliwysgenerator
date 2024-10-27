@@ -165,11 +165,24 @@ body, html {
     font-style: italic; /* Slightly different style for placeholder */
 }
 
+body.selftitled-theme .screenshot-text {
+    margin-top: 20px; /* Increase space above disclaimer */
+    z-index: 1; /* Ensure it stays on top */
+    position: relative;
+}
+
 .screenshot-text {
     font-size: 14px;
     color: #ffffff;
     margin-top: 10px;
     font-style: italic;
+}
+body.selftitled-theme .disclaimer {
+    padding-bottom: 15px; /* Add extra padding at the bottom */
+    margin-top: 10px; /* Adds space above disclaimer */
+    font-size: 12px; /* Adjust font size if needed */
+    color: #666666; /* Adjust color for better readability if necessary */
+    position: relative;
 }
 
 .disclaimer {
