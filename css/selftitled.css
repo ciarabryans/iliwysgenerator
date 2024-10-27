@@ -280,10 +280,11 @@ input:checked + .slider:before {
     font-weight: 500;
     letter-spacing: 0.5px;
 }
-/* Mobile font size adjustment */
+/* Mobile baseline font adjustment */
 @media (max-width: 600px) {
     #outputTextSelfTitled {
-        font-size: 16px; /* Reduced font size for mobile */
-        letter-spacing: 8px; /* Adjusted letter-spacing for smaller screen */
+        font-size: 18px !important; /* Force smaller font size on mobile */
+        letter-spacing: 8px;
+        padding: 10px;
     }
 }
