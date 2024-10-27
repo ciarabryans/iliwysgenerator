@@ -7,11 +7,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleBoxContainer = document.getElementById('toggleBoxContainer');
     const toggleBox = document.getElementById('toggleBox');
     const outputTextSelfTitled = document.getElementById('outputTextSelfTitled');
-    
+    const disclaimer = document.querySelector('.disclaimer');
+
     const defaultOutput = "Genuinely&nbsp;Laughable<br>iliwys meme generator";
     const defaultSelfTitledTextWithBreaks = "Go down<br>Soft sound<br>Midnight<br>Car lights";
     const defaultSelfTitledTextNoBreaks = "Go down Soft sound Midnight Car lights";
-    
+
     let boxVisible = true;
     let activeTheme = 'default-theme';
     outputText.innerHTML = defaultOutput;
@@ -23,30 +24,30 @@ document.addEventListener('DOMContentLoaded', function() {
         const container = activeTheme === 'selftitled-theme' ? selfTitledContainer : defaultOutputContainer;
         const maxWidth = container.clientWidth * 0.95;
         const maxHeight = container.clientHeight * 0.95;
-    
+
         let fontSize = window.innerWidth < 600 ? 18 : 36;
         const minFontSize = 12;
-    
+
         context.font = `${fontSize}px GothicB`;
         let textWidth = context.measureText(text).width;
         let lineCount = (text.match(/\n/g) || []).length + 1;
         let textHeight = fontSize * lineCount * 1.2;
-    
+
         while ((textWidth > maxWidth || textHeight > maxHeight) && fontSize > minFontSize) {
             fontSize -= 1;
             context.font = `${fontSize}px GothicB`;
             textWidth = context.measureText(text).width;
             textHeight = fontSize * lineCount * 1.2;
         }
-    
+
         const defaultFontSize = window.innerWidth < 600 ? 18 : 36;
         const defaultLetterSpacing = 10;
         const adjustedLetterSpacing = activeTheme === 'selftitled-theme'
             ? (fontSize / defaultFontSize) * (defaultLetterSpacing + 2)
             : (fontSize / defaultFontSize) * defaultLetterSpacing;
-    
+
         const lineHeight = fontSize * 1.2;
-    
+
         if (activeTheme === 'selftitled-theme') {
             outputTextSelfTitled.style.fontSize = `${fontSize}px`;
             outputTextSelfTitled.style.letterSpacing = `${adjustedLetterSpacing}px`;
@@ -117,13 +118,13 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleBox.addEventListener('change', function() {
         boxVisible = toggleBox.checked;
         selfTitledContainer.classList.toggle('expanded', !boxVisible);
-        
+
         const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
         outputTextSelfTitled.classList.toggle('expanded-style', !boxVisible);
         outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
 
-        // Toggle the 'no-box' class on the body based on the toggle state
-        if (!boxVisible) {
+        // Toggle the 'no-box' class on the body for mobile devices only when in "box mode"
+        if (!boxVisible && window.innerWidth <= 600) {
             document.body.classList.add('no-box');
         } else {
             document.body.classList.remove('no-box');
