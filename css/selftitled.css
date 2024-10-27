@@ -28,6 +28,17 @@ body.selftitled-theme #toggleBoxContainer {
     animation: none; /* Stop pulsing animation if applied */
 }
 
+.expanded-style {
+    font-size: 36px;
+    letter-spacing: 10px;
+    line-height: 1.2;
+    max-width: 94%;
+    margin: 0 auto;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    white-space: normal;
+}
 
 /* Self-titled container and other styling as before */
 

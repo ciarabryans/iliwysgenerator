@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const selfTitledContainer = document.getElementById('selfTitledContainer');
     const toggleBoxContainer = document.getElementById('toggleBoxContainer');
     const toggleBox = document.getElementById('toggleBox');
+    const outputTextSelfTitled = document.getElementById('outputTextSelfTitled');
     const defaultOutput = "Genuinely&nbsp;Laughable<br>iliwys meme generator";
     const defaultSelfTitledText = "Self Titled Better Than Notes LOL";
     let boxVisible = true;
@@ -45,10 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const lineHeight = fontSize * 1.2;
 
         if (activeTheme === 'selftitled-theme') {
-            const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
-            selfTitledOutputText.style.fontSize = `${fontSize}px`;
-            selfTitledOutputText.style.letterSpacing = `${adjustedLetterSpacing}px`;
-            selfTitledOutputText.style.lineHeight = `${lineHeight}px`;
+            outputTextSelfTitled.style.fontSize = `${fontSize}px`;
+            outputTextSelfTitled.style.letterSpacing = `${adjustedLetterSpacing}px`;
+            outputTextSelfTitled.style.lineHeight = `${lineHeight}px`;
         } else {
             outputText.style.fontSize = `${fontSize}px`;
             outputText.style.letterSpacing = `${adjustedLetterSpacing}px`;
@@ -69,17 +69,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function resetDefaultThemeStyles() {
-        outputText.style.fontSize = '36px';  
+        outputText.style.fontSize = '36px';
         outputText.style.letterSpacing = '10px';
         outputText.style.lineHeight = '1.2';
-        outputText.innerHTML = defaultOutput; 
+        outputText.innerHTML = defaultOutput;
     }
 
     userInput.addEventListener('input', debounce(function() {
         const text = userInput.value;
         if (activeTheme === 'selftitled-theme') {
-            const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
-            selfTitledOutputText.innerHTML = formatTextForSelfTitled(text || defaultSelfTitledText);
+            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text || defaultSelfTitledText);
             adjustFontSizeAndSpacing(text || defaultSelfTitledText);
         } else {
             outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
@@ -100,45 +99,26 @@ document.addEventListener('DOMContentLoaded', function() {
         if (theme === 'selftitled-theme') {
             selfTitledContainer.style.display = 'flex';
             defaultOutputContainer.style.display = 'none';
-            toggleBoxContainer.style.display = 'block'; 
-            const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
-            selfTitledOutputText.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
+            toggleBoxContainer.style.display = 'block';
+            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
             adjustFontSizeAndSpacing(userInput.value || defaultSelfTitledText);
         } else {
             selfTitledContainer.style.display = 'none';
             defaultOutputContainer.style.display = 'flex';
-            toggleBoxContainer.style.display = 'none'; 
-            resetDefaultThemeStyles();  
+            toggleBoxContainer.style.display = 'none';
+            resetDefaultThemeStyles();
         }
     }
 
     toggleBox.addEventListener('change', function() {
         boxVisible = toggleBox.checked;
-        const selfTitledOutputText = document.getElementById('outputTextSelfTitled');
-
+        selfTitledContainer.classList.toggle('expanded', !boxVisible);
         if (!boxVisible) {
-            selfTitledContainer.style.width = '100%';
-            selfTitledContainer.style.height = 'auto';
-            selfTitledContainer.style.overflow = 'visible';
-            selfTitledContainer.style.boxShadow = 'none';
-            selfTitledContainer.style.border = 'none';
-
-            // Remove pulsing glow effect
-            selfTitledContainer.style.animation = 'none';
-            selfTitledContainer.classList.add('no-fade');
+            outputTextSelfTitled.classList.add('expanded-style');
         } else {
-            selfTitledContainer.style.width = '300px';
-            selfTitledContainer.style.height = '450px';
-            selfTitledContainer.style.overflow = 'hidden';
-            selfTitledContainer.style.boxShadow = ''; 
-            selfTitledContainer.style.border = '2px solid #ffffff'; 
-
-            // Reapply pulsing glow effect
-            selfTitledContainer.style.animation = 'pulse-glow 1.5s infinite';
-            selfTitledContainer.classList.remove('no-fade');
+            outputTextSelfTitled.classList.remove('expanded-style');
         }
-
-        selfTitledOutputText.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
+        outputTextSelfTitled.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
     });
 
     document.querySelectorAll('.color-circle').forEach(button => {
