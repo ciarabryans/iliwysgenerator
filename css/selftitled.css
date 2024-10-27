@@ -218,6 +218,7 @@ body.selftitled-theme .disclaimer {
     font-family: 'GOTHIC', Arial, sans-serif;
     font-weight: bold;
     letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 /* Toggle Switch Styling */

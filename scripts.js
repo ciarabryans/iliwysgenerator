@@ -115,14 +115,17 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleBox.addEventListener('change', function() {
         boxVisible = toggleBox.checked;
         selfTitledContainer.classList.toggle('expanded', !boxVisible);
+        
         if (!boxVisible) {
             outputTextSelfTitled.classList.add('expanded-style');
-            outputTextSelfTitled.innerHTML = `// ${defaultSelfTitledTextNoBreaks} //`; // Text without line breaks and with slashes
+            outputTextSelfTitled.innerHTML = `// ${defaultSelfTitledTextNoBreaks} //`;
+            document.querySelector('.toggle-label').textContent = "Turn on for box";
         } else {
             outputTextSelfTitled.classList.remove('expanded-style');
-            outputTextSelfTitled.innerHTML = defaultSelfTitledTextWithBreaks; // Text with line breaks
+            outputTextSelfTitled.innerHTML = defaultSelfTitledTextWithBreaks;
+            document.querySelector('.toggle-label').textContent = "Turn off for EP Text";
         }
-    });
+    });    
 
     document.querySelectorAll('.color-circle').forEach(button => {
         button.addEventListener('click', () => {
