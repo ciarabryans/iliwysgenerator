@@ -30,17 +30,17 @@ document.addEventListener('DOMContentLoaded', function() {
         let lineCount = (text.match(/\n/g) || []).length + 1;
         let textHeight = fontSize * lineCount * 1.2;
     
-        if (!(activeTheme === 'selftitled-theme' && text === defaultSelfTitledText)) {
-            while ((textWidth > maxWidth || textHeight > maxHeight) && fontSize > minFontSize) {
-                fontSize -= 1;
-                context.font = `${fontSize}px GothicB`;
-                textWidth = context.measureText(text).width;
-                textHeight = fontSize * lineCount * 1.2;
-            }
+        // Dynamically resize the font to fit within maxWidth and maxHeight
+        while ((textWidth > maxWidth || textHeight > maxHeight) && fontSize > minFontSize) {
+            fontSize -= 1;
+            context.font = `${fontSize}px GothicB`;
+            textWidth = context.measureText(text).width;
+            textHeight = fontSize * lineCount * 1.2;
         }
     
+        // Adjust letter spacing for mobile view
         const defaultFontSize = window.innerWidth < 600 ? 18 : 36;
-        const defaultLetterSpacing = 10;
+        const defaultLetterSpacing = window.innerWidth < 600 ? 8 : 10; // Decrease letter spacing by 2px on mobile
         const adjustedLetterSpacing = activeTheme === 'selftitled-theme'
             ? (fontSize / defaultFontSize) * (defaultLetterSpacing + 2)
             : (fontSize / defaultFontSize) * defaultLetterSpacing;
