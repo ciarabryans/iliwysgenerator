@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggleBoxContainer = document.getElementById('toggleBoxContainer');
     const toggleBox = document.getElementById('toggleBox');
     const outputTextSelfTitled = document.getElementById('outputTextSelfTitled');
+    
     const defaultOutput = "Genuinely&nbsp;Laughable<br>iliwys meme generator";
-    const defaultSelfTitledText = "Go down<br>Soft sound<br>Midnight<br>Car lights";
+    const defaultSelfTitledTextWithBreaks = "Go down<br>Soft sound<br>Midnight<br>Car lights";
+    const defaultSelfTitledTextNoBreaks = "Go down Soft sound Midnight Car lights";
+    
     let boxVisible = true;
     let activeTheme = 'default-theme';
     outputText.innerHTML = defaultOutput;
@@ -21,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const maxWidth = container.clientWidth * 0.95;
         const maxHeight = container.clientHeight * 0.95;
     
-        // Set a smaller base font size for mobile screens
         let fontSize = window.innerWidth < 600 ? 18 : 36;
         const minFontSize = 12;
     
@@ -30,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let lineCount = (text.match(/\n/g) || []).length + 1;
         let textHeight = fontSize * lineCount * 1.2;
     
-        // Dynamically resize the font to fit within maxWidth and maxHeight
         while ((textWidth > maxWidth || textHeight > maxHeight) && fontSize > minFontSize) {
             fontSize -= 1;
             context.font = `${fontSize}px GothicB`;
@@ -38,9 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
             textHeight = fontSize * lineCount * 1.2;
         }
     
-        // Adjust letter spacing for mobile view
         const defaultFontSize = window.innerWidth < 600 ? 18 : 36;
-        const defaultLetterSpacing = window.innerWidth < 600 ? 8 : 10; // Decrease letter spacing by 2px on mobile
+        const defaultLetterSpacing = 10;
         const adjustedLetterSpacing = activeTheme === 'selftitled-theme'
             ? (fontSize / defaultFontSize) * (defaultLetterSpacing + 2)
             : (fontSize / defaultFontSize) * defaultLetterSpacing;
@@ -80,8 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
     userInput.addEventListener('input', debounce(function() {
         const text = userInput.value;
         if (activeTheme === 'selftitled-theme') {
-            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text || defaultSelfTitledText);
-            adjustFontSizeAndSpacing(text || defaultSelfTitledText);
+            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks));
+            adjustFontSizeAndSpacing(text || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks));
         } else {
             outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
             adjustFontSizeAndSpacing(text || defaultOutput);
@@ -102,8 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
             selfTitledContainer.style.display = 'flex';
             defaultOutputContainer.style.display = 'none';
             toggleBoxContainer.style.display = 'block';
-            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
-            adjustFontSizeAndSpacing(userInput.value || defaultSelfTitledText);
+            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : `// ${defaultSelfTitledTextNoBreaks} //`));
+            adjustFontSizeAndSpacing(userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : `// ${defaultSelfTitledTextNoBreaks} //`));
         } else {
             selfTitledContainer.style.display = 'none';
             defaultOutputContainer.style.display = 'flex';
@@ -114,18 +114,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     toggleBox.addEventListener('change', function() {
         boxVisible = toggleBox.checked;
-    
+        selfTitledContainer.classList.toggle('expanded', !boxVisible);
         if (!boxVisible) {
-            selfTitledContainer.classList.add('expanded', 'hide-border');
             outputTextSelfTitled.classList.add('expanded-style');
+            outputTextSelfTitled.innerHTML = `// ${defaultSelfTitledTextNoBreaks} //`; // Text without line breaks and with slashes
         } else {
-            selfTitledContainer.classList.remove('expanded', 'hide-border');
             outputTextSelfTitled.classList.remove('expanded-style');
+            outputTextSelfTitled.innerHTML = defaultSelfTitledTextWithBreaks; // Text with line breaks
         }
-        
-        outputTextSelfTitled.innerHTML = formatTextForSelfTitled(userInput.value || defaultSelfTitledText);
     });
-    
+
     document.querySelectorAll('.color-circle').forEach(button => {
         button.addEventListener('click', () => {
             switchTheme(button.id);
