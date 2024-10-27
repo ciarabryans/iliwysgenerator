@@ -266,12 +266,12 @@ body.selftitled-theme .disclaimer {
 
 /* Toggle ON state */
 input:checked + .slider {
-    background-color: #ffffff; /* White background for ON state */
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 input:checked + .slider:before {
     transform: translateX(22px); /* Shift to right for ON state */
-    background-color: #000; /* Dark circle for ON state */
+    background-color: #fff; /* Dark circle for ON state */
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.4); /* Soft black glow when ON */
 }
 
