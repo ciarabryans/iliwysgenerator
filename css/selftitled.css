@@ -302,13 +302,22 @@ input:checked + .slider:before {
         font-size: 18px; /* Adjust base font size for mobile */
         letter-spacing: 8px; /* Decrease letter spacing by 2px on mobile */
     }
-    /* Default padding for disclaimer in self-titled theme */
     body.selftitled-theme .disclaimer {
-        padding-bottom: 40px; /* More space to avoid overlap */
+        position: absolute;
+        bottom: 20px; /* Adjust as needed to move it up slightly */
+        padding-bottom: 10px; /* Additional space to avoid overlap */
     }
 
-    /* Adjust padding when the box is off */
-    body.selftitled-theme.no-box .disclaimer {
-        padding-bottom: 20px; /* Less space needed without the box */
+    body.selftitled-theme #userInput {
+        margin-bottom: 60px; /* Add space above the disclaimer */
+    }
+
+    .self-titled-container {
+        padding-bottom: 50px; /* Add padding to avoid pushing elements too low */
+    }
+
+    /* Adjust spacing for when the box is visible */
+    body.selftitled-theme .container {
+        padding-bottom: 100px; /* Adjust based on visual needs */
     }
 }
