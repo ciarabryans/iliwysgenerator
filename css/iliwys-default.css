@@ -83,7 +83,7 @@ body, html {
     color: #ffffff;
     background-color: transparent;
     text-align: center;
-    max-width: 94%;
+    /* max-width: 94%; */
     line-height: 1.2;
     text-transform: uppercase;
     overflow-wrap: break-word;
