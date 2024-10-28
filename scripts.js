@@ -80,12 +80,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     userInput.addEventListener('input', debounce(function() {
         const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
+
         if (activeTheme === 'selftitled-theme') {
-            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
-            adjustFontSizeAndSpacing(text);
+            if (userInput.value === "") {
+                // Reset placeholder text in self-titled theme
+                outputTextSelfTitled.innerHTML = formatTextForSelfTitled(defaultSelfTitledTextNoBreaks);
+                outputTextSelfTitled.style.fontSize = '12px';
+                outputTextSelfTitled.style.letterSpacing = '5px';
+            } else {
+                outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
+                adjustFontSizeAndSpacing(text);
+            }
         } else {
-            outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
-            adjustFontSizeAndSpacing(text || defaultOutput);
+            if (userInput.value === "") {
+                // Reset to default placeholder in default theme
+                resetDefaultThemeStyles();
+            } else {
+                outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
+                adjustFontSizeAndSpacing(text || defaultOutput);
+            }
         }
     }, 300));
 
