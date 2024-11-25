@@ -24,9 +24,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const maxWidth = container.clientWidth * 0.95;
         const maxHeight = container.clientHeight * 0.95;
 
-        let fontSize = window.innerWidth < 600 ? 18 : 36; // Mobile vs. larger screens
+        let fontSize = window.innerWidth < 600 ? 18 : 36; // Default scaling
         const minFontSize = 12;
 
+        // Adjust font size and letter spacing dynamically
         context.font = `${fontSize}px GothicB`;
         let textWidth = context.measureText(text).width;
         let lineCount = (text.match(/\n/g) || []).length + 1;
@@ -41,27 +42,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const defaultFontSize = window.innerWidth < 600 ? 18 : 36;
         const defaultLetterSpacing = 10;
-        const adjustedLetterSpacing =
-            activeTheme === 'selftitled-theme'
-                ? (fontSize / defaultFontSize) * (defaultLetterSpacing - 2) // Reduce by 2px dynamically for Box/EP
-                : defaultLetterSpacing;
 
+        let adjustedLetterSpacing;
         let lineHeight = fontSize * 1.2;
 
-        // Increase line height for both Box and EP themes dynamically
-        if (activeTheme === 'selftitled-theme') {
-            lineHeight += 8; // Add 8px for both Box and EP modes
+        // Specific adjustments for default theme
+        if (activeTheme === 'default-theme') {
+            fontSize += 2; // Increase font size by 2px
+            adjustedLetterSpacing = defaultLetterSpacing - 5; // Decrease letter spacing by 5px
+        } else if (activeTheme === 'selftitled-theme') {
+            adjustedLetterSpacing = (fontSize / defaultFontSize) * (defaultLetterSpacing - 2); // For Box/EP themes
+            lineHeight += 8; // Add 8px for Box/EP modes
+        } else {
+            adjustedLetterSpacing = defaultLetterSpacing;
         }
 
+        // Apply styles dynamically based on the theme
         if (activeTheme === 'selftitled-theme') {
             outputTextSelfTitled.style.fontSize = `${fontSize}px`;
             outputTextSelfTitled.style.letterSpacing = `${adjustedLetterSpacing}px`;
             outputTextSelfTitled.style.lineHeight = `${lineHeight}px`;
         } else {
-            // Reset to exact default values for the default theme
-            outputText.style.fontSize = window.innerWidth < 600 ? '16px' : '36px';
-            outputText.style.letterSpacing = window.innerWidth < 600 ? '8px' : '10px';
-            outputText.style.lineHeight = '1.2';
+            outputText.style.fontSize = `${fontSize}px`;
+            outputText.style.letterSpacing = `${adjustedLetterSpacing}px`;
+            outputText.style.lineHeight = '1.2'; // Default theme line height
         }
     }
 
@@ -86,8 +90,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function resetDefaultThemeStyles() {
         // Reset font size and spacing for default theme only
-        outputText.style.fontSize = window.innerWidth < 600 ? '16px' : '36px';
-        outputText.style.letterSpacing = window.innerWidth < 600 ? '8px' : '10px';
+        outputText.style.fontSize = window.innerWidth < 600 ? '20px' : '40px'; // Default font size +4px
+        outputText.style.letterSpacing = window.innerWidth < 600 ? '5px' : '7px'; // Letter-spacing -3px
         outputText.style.lineHeight = '1.2';
         outputText.innerHTML = defaultOutput;
     }
