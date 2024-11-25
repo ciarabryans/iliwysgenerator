@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const outputText = document.getElementById('outputText');
     const userInput = document.getElementById('userInput');
     const themeStylesheet = document.getElementById('themeStylesheet');
@@ -42,9 +42,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const defaultFontSize = window.innerWidth < 600 ? 18 : 36;
         const defaultLetterSpacing = 10;
-        const adjustedLetterSpacing = activeTheme === 'selftitled-theme'
-            ? (fontSize / defaultFontSize) * (defaultLetterSpacing + 2)
-            : (fontSize / defaultFontSize) * defaultLetterSpacing;
+        const adjustedLetterSpacing =
+            activeTheme === 'selftitled-theme'
+                ? (fontSize / defaultFontSize) * (defaultLetterSpacing - 2) // Reduce by 2px dynamically
+                : (fontSize / defaultFontSize) * defaultLetterSpacing;
 
         const lineHeight = fontSize * 1.2;
 
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function debounce(func, delay) {
         let timeout;
-        return function(...args) {
+        return function (...args) {
             clearTimeout(timeout);
             timeout = setTimeout(() => func.apply(this, args), delay);
         };
@@ -78,29 +79,32 @@ document.addEventListener('DOMContentLoaded', function() {
         outputText.innerHTML = defaultOutput;
     }
 
-    userInput.addEventListener('input', debounce(function() {
-        const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
+    userInput.addEventListener(
+        'input',
+        debounce(function () {
+            const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
 
-        if (activeTheme === 'selftitled-theme') {
-            if (userInput.value === "") {
-                // Reset placeholder text in self-titled theme
-                outputTextSelfTitled.innerHTML = formatTextForSelfTitled(defaultSelfTitledTextNoBreaks);
-                outputTextSelfTitled.style.fontSize = '12px';
-                outputTextSelfTitled.style.letterSpacing = '5px';
+            if (activeTheme === 'selftitled-theme') {
+                if (userInput.value === "") {
+                    // Reset placeholder text in self-titled theme
+                    outputTextSelfTitled.innerHTML = formatTextForSelfTitled(defaultSelfTitledTextNoBreaks);
+                    outputTextSelfTitled.style.fontSize = '12px';
+                    outputTextSelfTitled.style.letterSpacing = '5px';
+                } else {
+                    outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
+                    adjustFontSizeAndSpacing(text);
+                }
             } else {
-                outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
-                adjustFontSizeAndSpacing(text);
+                if (userInput.value === "") {
+                    // Reset to default placeholder in default theme
+                    resetDefaultThemeStyles();
+                } else {
+                    outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
+                    adjustFontSizeAndSpacing(text || defaultOutput);
+                }
             }
-        } else {
-            if (userInput.value === "") {
-                // Reset to default placeholder in default theme
-                resetDefaultThemeStyles();
-            } else {
-                outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
-                adjustFontSizeAndSpacing(text || defaultOutput);
-            }
-        }
-    }, 300));
+        }, 300)
+    );
 
     const themes = {
         'default-theme': 'css/iliwys-default.css',
@@ -124,11 +128,10 @@ document.addEventListener('DOMContentLoaded', function() {
             defaultOutputContainer.style.display = 'flex';
             toggleBoxContainer.style.display = 'none';
             resetDefaultThemeStyles();
-            document.body.classList.remove('no-box'); // Ensure no-box is removed in default theme
         }
     }
 
-    toggleBox.addEventListener('change', function() {
+    toggleBox.addEventListener('change', function () {
         boxVisible = toggleBox.checked;
         selfTitledContainer.classList.toggle('expanded', !boxVisible);
 
@@ -144,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.querySelectorAll('.color-circle').forEach(button => {
+    document.querySelectorAll('.color-circle').forEach((button) => {
         button.addEventListener('click', () => {
             switchTheme(button.id);
         });
