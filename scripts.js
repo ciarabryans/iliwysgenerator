@@ -66,7 +66,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function formatTextForSelfTitled(text) {
+        // Add `//` for EP mode only
         return boxVisible ? text.replace(/\n/g, '<br>') : `// ${text.replace(/<br>/g, ' ')} //`;
+    }
+
+    function resetEPFormatting() {
+        // Remove `//` formatting when switching back to Box mode
+        const text = userInput.value || defaultSelfTitledTextNoBreaks;
+        outputTextSelfTitled.innerHTML = text.replace(/^\/\/\s*|\s*\/\/$/g, '');
     }
 
     function debounce(func, delay) {
@@ -121,17 +128,21 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     function switchTheme(theme) {
+        const previousOutput = userInput.value || outputText.innerHTML.replace(/<br>/g, ' ');
         themeStylesheet.href = themes[theme];
         activeTheme = theme;
         document.body.className = theme;
 
-        const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
         if (theme === 'selftitled-theme') {
             selfTitledContainer.style.display = 'flex';
             defaultOutputContainer.style.display = 'none';
             toggleBoxContainer.style.display = 'block';
-            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
-            adjustFontSizeAndSpacing(text);
+            if (!boxVisible) {
+                outputTextSelfTitled.innerHTML = formatTextForSelfTitled(previousOutput);
+            } else {
+                resetEPFormatting();
+            }
+            adjustFontSizeAndSpacing(previousOutput);
         } else {
             selfTitledContainer.style.display = 'none';
             defaultOutputContainer.style.display = 'flex';
@@ -144,6 +155,13 @@ document.addEventListener('DOMContentLoaded', function () {
         boxVisible = toggleBox.checked;
         selfTitledContainer.classList.toggle('expanded', !boxVisible);
 
+        if (boxVisible) {
+            resetEPFormatting(); // Reset formatting when switching to Box mode
+        } else {
+            const text = userInput.value || defaultSelfTitledTextNoBreaks;
+            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
+        }
+
         const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
         adjustFontSizeAndSpacing(text);
     });
@@ -154,7 +172,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Ensure line height adjustment applies immediately when page loads
+    // Ensure proper formatting on page load
     const initialText = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
+    outputTextSelfTitled.innerHTML = formatTextForSelfTitled(initialText);
     adjustFontSizeAndSpacing(initialText);
 });
