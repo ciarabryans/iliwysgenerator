@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const defaultLetterSpacing = 10;
         const adjustedLetterSpacing =
             activeTheme === 'selftitled-theme'
-                ? (fontSize / defaultFontSize) * (defaultLetterSpacing - 2) // Reduce by 2px dynamically
-                : (fontSize / defaultFontSize) * defaultLetterSpacing;
+                ? (fontSize / defaultFontSize) * (defaultLetterSpacing - 2) // Reduce by 2px dynamically for box/EP
+                : defaultLetterSpacing;
 
         const lineHeight = fontSize * 1.2;
 
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
             outputTextSelfTitled.style.lineHeight = `${lineHeight}px`;
         } else {
             outputText.style.fontSize = `${fontSize}px`;
-            outputText.style.letterSpacing = `${adjustedLetterSpacing}px`;
+            outputText.style.letterSpacing = `${defaultLetterSpacing}px`;
             outputText.style.lineHeight = `${lineHeight}px`;
         }
     }
@@ -79,6 +79,13 @@ document.addEventListener('DOMContentLoaded', function () {
         outputText.innerHTML = defaultOutput;
     }
 
+    function resetSelfTitledStyles() {
+        outputTextSelfTitled.style.fontSize = '12px';
+        outputTextSelfTitled.style.letterSpacing = '5px';
+        outputTextSelfTitled.style.lineHeight = '1.2';
+        outputTextSelfTitled.innerHTML = defaultSelfTitledTextNoBreaks;
+    }
+
     userInput.addEventListener(
         'input',
         debounce(function () {
@@ -87,9 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (activeTheme === 'selftitled-theme') {
                 if (userInput.value === "") {
                     // Reset placeholder text in self-titled theme
-                    outputTextSelfTitled.innerHTML = formatTextForSelfTitled(defaultSelfTitledTextNoBreaks);
-                    outputTextSelfTitled.style.fontSize = '12px';
-                    outputTextSelfTitled.style.letterSpacing = '5px';
+                    resetSelfTitledStyles();
                 } else {
                     outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
                     adjustFontSizeAndSpacing(text);
