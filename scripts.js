@@ -54,9 +54,10 @@ document.addEventListener('DOMContentLoaded', function () {
             outputTextSelfTitled.style.letterSpacing = `${adjustedLetterSpacing}px`;
             outputTextSelfTitled.style.lineHeight = `${lineHeight}px`;
         } else {
-            outputText.style.fontSize = `${fontSize}px`;
-            outputText.style.letterSpacing = `${defaultLetterSpacing}px`;
-            outputText.style.lineHeight = `${lineHeight}px`;
+            // Reset to exact default values for the default theme
+            outputText.style.fontSize = window.innerWidth < 600 ? '16px' : '36px';
+            outputText.style.letterSpacing = window.innerWidth < 600 ? '8px' : '10px';
+            outputText.style.lineHeight = '1.2';
         }
     }
 
@@ -73,19 +74,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function resetDefaultThemeStyles() {
-        // Adjust font size and spacing for mobile
-        if (window.innerWidth < 600) {
-            outputText.style.fontSize = '16px';
-            outputText.style.letterSpacing = '8px';
-        } else {
-            outputText.style.fontSize = '36px';
-            outputText.style.letterSpacing = '10px';
-        }
+        // Reset font size and spacing for default theme only
+        outputText.style.fontSize = window.innerWidth < 600 ? '16px' : '36px';
+        outputText.style.letterSpacing = window.innerWidth < 600 ? '8px' : '10px';
         outputText.style.lineHeight = '1.2';
         outputText.innerHTML = defaultOutput;
     }
 
     function resetSelfTitledStyles() {
+        // Reset font size and spacing for self-titled theme only
         outputTextSelfTitled.style.fontSize = window.innerWidth < 600 ? '12px' : '16px';
         outputTextSelfTitled.style.letterSpacing = '5px';
         outputTextSelfTitled.style.lineHeight = '1.2';
