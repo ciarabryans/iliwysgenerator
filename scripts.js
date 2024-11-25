@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const maxWidth = container.clientWidth * 0.95;
         const maxHeight = container.clientHeight * 0.95;
 
-        let fontSize = window.innerWidth < 600 ? 18 : 36;
+        let fontSize = window.innerWidth < 600 ? 18 : 36; // Mobile vs. larger screens
         const minFontSize = 12;
 
         context.font = `${fontSize}px GothicB`;
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const defaultLetterSpacing = 10;
         const adjustedLetterSpacing =
             activeTheme === 'selftitled-theme'
-                ? (fontSize / defaultFontSize) * (defaultLetterSpacing - 2) // Reduce by 2px dynamically for box/EP
+                ? (fontSize / defaultFontSize) * (defaultLetterSpacing - 2) // Reduce by 2px dynamically for Box/EP
                 : defaultLetterSpacing;
 
         const lineHeight = fontSize * 1.2;
@@ -73,14 +73,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function resetDefaultThemeStyles() {
-        outputText.style.fontSize = '36px';
-        outputText.style.letterSpacing = '10px';
+        // Adjust font size and spacing for mobile
+        if (window.innerWidth < 600) {
+            outputText.style.fontSize = '16px';
+            outputText.style.letterSpacing = '8px';
+        } else {
+            outputText.style.fontSize = '36px';
+            outputText.style.letterSpacing = '10px';
+        }
         outputText.style.lineHeight = '1.2';
         outputText.innerHTML = defaultOutput;
     }
 
     function resetSelfTitledStyles() {
-        outputTextSelfTitled.style.fontSize = '12px';
+        outputTextSelfTitled.style.fontSize = window.innerWidth < 600 ? '12px' : '16px';
         outputTextSelfTitled.style.letterSpacing = '5px';
         outputTextSelfTitled.style.lineHeight = '1.2';
         outputTextSelfTitled.innerHTML = defaultSelfTitledTextNoBreaks;
@@ -93,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (activeTheme === 'selftitled-theme') {
                 if (userInput.value === "") {
-                    // Reset placeholder text in self-titled theme
                     resetSelfTitledStyles();
                 } else {
                     outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
@@ -101,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             } else {
                 if (userInput.value === "") {
-                    // Reset to default placeholder in default theme
                     resetDefaultThemeStyles();
                 } else {
                     outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
@@ -144,7 +148,6 @@ document.addEventListener('DOMContentLoaded', function () {
         outputTextSelfTitled.classList.toggle('expanded-style', !boxVisible);
         outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
 
-        // Toggle the 'no-box' class on the body for mobile devices only when in "box mode"
         if (!boxVisible && window.innerWidth <= 600) {
             document.body.classList.add('no-box');
         } else {
