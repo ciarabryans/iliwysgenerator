@@ -47,7 +47,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 ? (fontSize / defaultFontSize) * (defaultLetterSpacing - 2) // Reduce by 2px dynamically for Box/EP
                 : defaultLetterSpacing;
 
-        const lineHeight = fontSize * 1.2;
+        let lineHeight = fontSize * 1.2;
+
+        // Increase line height for Box theme dynamically
+        if (activeTheme === 'selftitled-theme' && !boxVisible) {
+            lineHeight += 8; // Add 8px specifically for Box mode
+        }
 
         if (activeTheme === 'selftitled-theme') {
             outputTextSelfTitled.style.fontSize = `${fontSize}px`;
