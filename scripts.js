@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleBoxContainer = document.getElementById('toggleBoxContainer');
     const toggleBox = document.getElementById('toggleBox');
     const outputTextSelfTitled = document.getElementById('outputTextSelfTitled');
-    const disclaimer = document.querySelector('.disclaimer');
 
     const defaultOutput = "Genuinely&nbsp;Laughable<br>iliwys meme generator";
     const defaultSelfTitledTextWithBreaks = "Go down<br>Soft sound<br>Midnight<br>Car lights";
@@ -49,9 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let lineHeight = fontSize * 1.2;
 
-        // Increase line height for Box theme dynamically
-        if (activeTheme === 'selftitled-theme' && !boxVisible) {
-            lineHeight += 8; // Add 8px specifically for Box mode
+        // Increase line height for both Box and EP themes dynamically
+        if (activeTheme === 'selftitled-theme') {
+            lineHeight += 8; // Add 8px for both Box and EP modes
         }
 
         if (activeTheme === 'selftitled-theme') {
@@ -88,10 +87,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function resetSelfTitledStyles() {
         // Reset font size and spacing for self-titled theme only
-        outputTextSelfTitled.style.fontSize = window.innerWidth < 600 ? '12px' : '16px';
-        outputTextSelfTitled.style.letterSpacing = '5px';
-        outputTextSelfTitled.style.lineHeight = '1.2';
-        outputTextSelfTitled.innerHTML = defaultSelfTitledTextNoBreaks;
+        const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
+        outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
+        adjustFontSizeAndSpacing(text);
     }
 
     userInput.addEventListener(
@@ -147,14 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
         selfTitledContainer.classList.toggle('expanded', !boxVisible);
 
         const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
-        outputTextSelfTitled.classList.toggle('expanded-style', !boxVisible);
-        outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
-
-        if (!boxVisible && window.innerWidth <= 600) {
-            document.body.classList.add('no-box');
-        } else {
-            document.body.classList.remove('no-box');
-        }
+        adjustFontSizeAndSpacing(text);
     });
 
     document.querySelectorAll('.color-circle').forEach((button) => {
@@ -162,4 +153,8 @@ document.addEventListener('DOMContentLoaded', function () {
             switchTheme(button.id);
         });
     });
+
+    // Ensure line height adjustment applies immediately when page loads
+    const initialText = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
+    adjustFontSizeAndSpacing(initialText);
 });
