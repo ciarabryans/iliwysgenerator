@@ -5,13 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const defaultOutputContainer = document.getElementById('defaultOutputContainer');
     const selfTitledContainer = document.getElementById('selfTitledContainer');
     const toggleBoxContainer = document.getElementById('toggleBoxContainer');
-    const toggleBox = document.getElementById('toggleBox');
     const outputTextSelfTitled = document.getElementById('outputTextSelfTitled');
 
     const defaultOutput = "Genuinely&nbsp;Laughable<br>iliwys meme generator";
     const defaultSelfTitledTextWithBreaks = "Go down<br>Soft sound<br>Midnight<br>Car lights";
     const defaultSelfTitledTextNoBreaks = "Go down Soft sound Midnight Car lights";
-    const epDefaultText = "// musicforcars //"; // Default text for EP version
+    const epDefaultText = "musicforcars"; // Raw text without `//`
 
     let boxVisible = true;
     let activeTheme = 'default-theme';
@@ -21,7 +20,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const context = canvas.getContext('2d');
 
     function adjustFontSizeAndSpacing(text) {
-        const container = activeTheme === 'selftitled-theme' ? selfTitledContainer : defaultOutputContainer;
+        const container = activeTheme === 'selftitled-theme' || activeTheme === 'ep-theme'
+            ? selfTitledContainer
+            : defaultOutputContainer;
+
         const maxWidth = container.clientWidth * 0.95;
         const maxHeight = container.clientHeight * 0.95;
 
@@ -47,38 +49,38 @@ document.addEventListener('DOMContentLoaded', function () {
         let adjustedLetterSpacing;
         let lineHeight = fontSize * 1.2;
 
-        // Specific adjustments for default theme
         if (activeTheme === 'default-theme') {
             fontSize += 2; // Increase font size by 2px
             adjustedLetterSpacing = defaultLetterSpacing - 5; // Decrease letter spacing by 5px
-        } else if (activeTheme === 'selftitled-theme') {
-            adjustedLetterSpacing = (fontSize / defaultFontSize) * (defaultLetterSpacing - 2); // For Box/EP themes
-            lineHeight += 8; // Add 8px for Box/EP modes
         } else {
-            adjustedLetterSpacing = defaultLetterSpacing;
+            adjustedLetterSpacing = (fontSize / defaultFontSize) * (defaultLetterSpacing - 2);
+            lineHeight += 8; // Add 8px for Self-Titled or EP themes
         }
 
-        // Apply styles dynamically based on the theme
-        if (activeTheme === 'selftitled-theme') {
+        if (activeTheme === 'selftitled-theme' || activeTheme === 'ep-theme') {
             outputTextSelfTitled.style.fontSize = `${fontSize}px`;
             outputTextSelfTitled.style.letterSpacing = `${adjustedLetterSpacing}px`;
             outputTextSelfTitled.style.lineHeight = `${lineHeight}px`;
         } else {
             outputText.style.fontSize = `${fontSize}px`;
             outputText.style.letterSpacing = `${adjustedLetterSpacing}px`;
-            outputText.style.lineHeight = '1.2'; // Default theme line height
+            outputText.style.lineHeight = '1.2';
         }
     }
 
     function formatTextForSelfTitled(text) {
-        // Add `//` for EP mode only
         return boxVisible ? text.replace(/\n/g, '<br>') : `// ${text.replace(/<br>/g, ' ')} //`;
     }
 
+    function formatTextForEP(text) {
+        // Add `//` only if it's not already formatted
+        return text.startsWith('//') && text.endsWith('//') ? text : `// ${text} //`;
+    }
+
     function resetEPFormatting() {
-        // Remove `//` formatting when switching back to Box mode
-        const text = userInput.value || defaultSelfTitledTextNoBreaks;
-        outputTextSelfTitled.innerHTML = text.replace(/^\/\/\s*|\s*\/\/$/g, '');
+        const formattedText = formatTextForEP(epDefaultText); // Format only once
+        outputTextSelfTitled.innerHTML = formattedText;
+        adjustFontSizeAndSpacing(epDefaultText);
     }
 
     function debounce(func, delay) {
@@ -90,43 +92,42 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function resetDefaultThemeStyles() {
-        // Reset font size and spacing for default theme only
-        outputText.style.fontSize = window.innerWidth < 600 ? '20px' : '40px'; // Default font size +4px
-        outputText.style.letterSpacing = window.innerWidth < 600 ? '5px' : '7px'; // Letter-spacing -3px
+        outputText.style.fontSize = window.innerWidth < 600 ? '20px' : '40px';
+        outputText.style.letterSpacing = window.innerWidth < 600 ? '5px' : '7px';
         outputText.style.lineHeight = '1.2';
         outputText.innerHTML = defaultOutput;
     }
 
     function resetSelfTitledStyles() {
-        // Reset font size and spacing for self-titled theme only
         const text = boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks;
         outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
         adjustFontSizeAndSpacing(text);
     }
 
     function resetInputField() {
-        userInput.value = ''; // Clear the text area input
+        userInput.value = '';
     }
 
     userInput.addEventListener(
         'input',
         debounce(function () {
-            const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
+            const text =
+                userInput.value ||
+                (activeTheme === 'ep-theme'
+                    ? epDefaultText
+                    : activeTheme === 'selftitled-theme'
+                    ? defaultSelfTitledTextWithBreaks
+                    : defaultOutput);
 
-            if (activeTheme === 'selftitled-theme') {
-                if (userInput.value === "") {
-                    resetSelfTitledStyles();
-                } else {
-                    outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
-                    adjustFontSizeAndSpacing(text);
-                }
+            if (activeTheme === 'ep-theme') {
+                outputTextSelfTitled.innerHTML = formatTextForEP(text); // Format with `//` for EP theme
+                adjustFontSizeAndSpacing(text);
+            } else if (activeTheme === 'selftitled-theme') {
+                outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
+                adjustFontSizeAndSpacing(text);
             } else {
-                if (userInput.value === "") {
-                    resetDefaultThemeStyles();
-                } else {
-                    outputText.innerHTML = text.replace(/\n/g, '<br>') || defaultOutput;
-                    adjustFontSizeAndSpacing(text || defaultOutput);
-                }
+                outputText.innerHTML = text.replace(/\n/g, '<br>');
+                adjustFontSizeAndSpacing(text);
             }
         }, 300)
     );
@@ -134,12 +135,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const themes = {
         'default-theme': 'css/iliwys-default.css',
         'selftitled-theme': 'css/selftitled.css',
+        'ep-theme': 'css/ep.css',
     };
 
     function switchTheme(theme) {
-        resetInputField(); // Clear the input field whenever a theme is switched
-
-        const previousOutput = userInput.value || outputText.innerHTML.replace(/<br>/g, ' ');
+        resetInputField();
         themeStylesheet.href = themes[theme];
         activeTheme = theme;
         document.body.className = theme;
@@ -147,13 +147,13 @@ document.addEventListener('DOMContentLoaded', function () {
         if (theme === 'selftitled-theme') {
             selfTitledContainer.style.display = 'flex';
             defaultOutputContainer.style.display = 'none';
-            toggleBoxContainer.style.display = 'block';
-            if (!boxVisible) {
-                outputTextSelfTitled.innerHTML = epDefaultText;
-            } else {
-                resetEPFormatting();
-            }
-            adjustFontSizeAndSpacing(epDefaultText);
+            toggleBoxContainer.style.display = 'none';
+            resetSelfTitledStyles();
+        } else if (theme === 'ep-theme') {
+            selfTitledContainer.style.display = 'flex';
+            defaultOutputContainer.style.display = 'none';
+            toggleBoxContainer.style.display = 'none';
+            resetEPFormatting();
         } else {
             selfTitledContainer.style.display = 'none';
             defaultOutputContainer.style.display = 'flex';
@@ -162,27 +162,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    toggleBox.addEventListener('change', function () {
-        boxVisible = toggleBox.checked;
-        selfTitledContainer.classList.toggle('expanded', !boxVisible);
-
-        if (boxVisible) {
-            resetEPFormatting(); // Reset formatting when switching to Box mode
-        } else {
-            outputTextSelfTitled.innerHTML = epDefaultText;
-        }
-
-        adjustFontSizeAndSpacing(epDefaultText);
-    });
-
     document.querySelectorAll('.color-circle').forEach((button) => {
         button.addEventListener('click', () => {
             switchTheme(button.id);
         });
     });
 
-    // Ensure proper formatting on page load
-    const initialText = userInput.value || epDefaultText;
-    outputTextSelfTitled.innerHTML = formatTextForSelfTitled(initialText);
-    adjustFontSizeAndSpacing(initialText);
+    const initialText = formatTextForEP(epDefaultText); // Format once on initialization
+    outputTextSelfTitled.innerHTML = initialText;
+    adjustFontSizeAndSpacing(epDefaultText);
 });
