@@ -50,21 +50,17 @@ document.addEventListener('DOMContentLoaded', function () {
         let lineHeight = fontSize * 1.2;
 
         if (activeTheme === 'default-theme') {
-            fontSize += 2; // Increase font size by 2px
-            adjustedLetterSpacing = defaultLetterSpacing - 5; // Decrease letter spacing by 5px
-        } else {
+            fontSize += 2; // Increase font size by 2px for default theme
+            adjustedLetterSpacing = window.innerWidth < 600 ? '5px' : '7px'; // Mobile: 5px, Desktop: 7px
+            outputText.style.fontSize = `${fontSize}px`;
+            outputText.style.letterSpacing = adjustedLetterSpacing;
+            outputText.style.lineHeight = '1.2';
+        } else if (activeTheme === 'selftitled-theme' || activeTheme === 'ep-theme') {
             adjustedLetterSpacing = (fontSize / defaultFontSize) * (defaultLetterSpacing - 2);
             lineHeight += 8; // Add 8px for Self-Titled or EP themes
-        }
-
-        if (activeTheme === 'selftitled-theme' || activeTheme === 'ep-theme') {
             outputTextSelfTitled.style.fontSize = `${fontSize}px`;
             outputTextSelfTitled.style.letterSpacing = `${adjustedLetterSpacing}px`;
             outputTextSelfTitled.style.lineHeight = `${lineHeight}px`;
-        } else {
-            outputText.style.fontSize = `${fontSize}px`;
-            outputText.style.letterSpacing = `${adjustedLetterSpacing}px`;
-            outputText.style.lineHeight = '1.2';
         }
     }
 
@@ -92,8 +88,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function resetDefaultThemeStyles() {
-        outputText.style.fontSize = window.innerWidth < 600 ? '20px' : '40px';
-        outputText.style.letterSpacing = window.innerWidth < 600 ? '5px' : '7px';
+        // Default theme styles synced from live production code
+        const fontSize = window.innerWidth < 600 ? '20px' : '40px';
+        const letterSpacing = window.innerWidth < 600 ? '5px' : '7px'; // Synced values
+        outputText.style.fontSize = fontSize;
+        outputText.style.letterSpacing = letterSpacing;
         outputText.style.lineHeight = '1.2';
         outputText.innerHTML = defaultOutput;
     }
