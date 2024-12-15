@@ -14,8 +14,18 @@ body, html {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.container {
+    flex: 1; /* Ensures the container takes up all available space */
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 #outputTextSelfTitled {
@@ -29,15 +39,12 @@ body, html {
     overflow-wrap: break-word;
     white-space: normal;
 }
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
+.screenshot-text {
+    font-size: 14px;
+    color: #7A7A7A;
+    margin-top: 5px;
+    font-style: italic;
+    margin-top: 20px;
 }
 
 .theme-buttons {
@@ -84,22 +91,38 @@ body, html {
     font-style: italic;
     text-align: center;
 }
-/* EP Theme Footer Styling */
-body.ep-theme .disclaimer {
-    color: #fff; /* Light text for readability */
+
+.disclaimer {
     font-size: 12px;
+    color: #7A7A7A;
     text-align: center;
+    position: fixed; /* Sticks to the bottom */
     bottom: 0;
     left: 0;
     right: 0;
     padding: 10px;
     z-index: 1000;
+    background-color: transparent; /* Keeps footer from disrupting the design */
+}
+.disclaimer a {
+    color: #6E6E6E;
 }
 
-body.ep-theme .disclaimer a {
-    color: #ccc; /* Subtle link color */
+/* EP Theme Button Styling */
+#ep-theme {
+    position: relative; /* Enable positioning for text */
+    background-color: #000000; /* Black background for EP */
+    color: #ffffff; /* White text color for the label */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-body.ep-theme .disclaimer a:hover {
-    color: #fff; /* Brighter on hover */
+/* Centering the label */
+#ep-theme .theme-label {
+    font-size: 10px; /* Small font size to fit the circle */
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff; /* White label text for contrast */
+    pointer-events: none; /* Ensure the label doesn't interfere with clicks */
 }

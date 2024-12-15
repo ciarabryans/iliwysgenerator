@@ -35,6 +35,37 @@ body, html {
 .color-circle:hover {
     transform: scale(1.1);
 }
+.theme-label {
+    position: absolute;
+    font-size: 10px; /* Small font size */
+    font-weight: bold;
+    color: #ffffff; /* White text */
+    text-transform: uppercase;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust to be fully centered */
+    pointer-events: none; /* Ensure the label doesn't interfere with clicks */
+}
+
+/* EP Theme Button Styling */
+#ep-theme {
+    position: relative; /* Enable positioning for text */
+    background-color: #000000; /* Black background for EP */
+    color: #ffffff; /* White text color for the label */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Centering the label */
+#ep-theme .theme-label {
+    font-size: 10px; /* Small font size to fit the circle */
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff; /* White label text for contrast */
+    pointer-events: none; /* Ensure the label doesn't interfere with clicks */
+}
+
 
 .container {
     flex: 1;
