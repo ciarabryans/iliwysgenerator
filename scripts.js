@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let fontSize = window.innerWidth < 600 ? 18 : 36; // Default scaling
         const minFontSize = 12;
 
-        // Adjust font size and letter spacing dynamically
+        // Adjust font size dynamically
         context.font = `${fontSize}px GothicB`;
         let textWidth = context.measureText(text).width;
         let lineCount = (text.match(/\n/g) || []).length + 1;
@@ -55,9 +55,16 @@ document.addEventListener('DOMContentLoaded', function () {
             outputText.style.fontSize = `${fontSize}px`;
             outputText.style.letterSpacing = adjustedLetterSpacing;
             outputText.style.lineHeight = '1.2';
-        } else if (activeTheme === 'selftitled-theme' || activeTheme === 'ep-theme') {
+        } else if (activeTheme === 'ep-theme') {
+            // Increase letter spacing by 3px for EP theme on desktop
+            adjustedLetterSpacing = (fontSize / defaultFontSize) * (defaultLetterSpacing - 2 + (window.innerWidth >= 600 ? 3 : 0)); 
+            lineHeight += 8; // Add 8px for EP theme
+            outputTextSelfTitled.style.fontSize = `${fontSize}px`;
+            outputTextSelfTitled.style.letterSpacing = `${adjustedLetterSpacing}px`;
+            outputTextSelfTitled.style.lineHeight = `${lineHeight}px`;
+        } else if (activeTheme === 'selftitled-theme') {
             adjustedLetterSpacing = (fontSize / defaultFontSize) * (defaultLetterSpacing - 2);
-            lineHeight += 8; // Add 8px for Self-Titled or EP themes
+            lineHeight += 8; // Add 8px for Self-Titled theme
             outputTextSelfTitled.style.fontSize = `${fontSize}px`;
             outputTextSelfTitled.style.letterSpacing = `${adjustedLetterSpacing}px`;
             outputTextSelfTitled.style.lineHeight = `${lineHeight}px`;
@@ -65,12 +72,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function formatTextForSelfTitled(text) {
-        return boxVisible ? text.replace(/\n/g, '<br>') : `// ${text.replace(/<br>/g, ' ')} //`;
+        return boxVisible ? text.replace(/\n/g, '<br>') : `//${text.replace(/<br>/g, ' ')}//`;
     }
 
     function formatTextForEP(text) {
-        // Add `//` only if it's not already formatted
-        return text.startsWith('//') && text.endsWith('//') ? text : `// ${text} //`;
+        // Add `//` only if it's not already formatted, no spaces around //
+        return text.startsWith('//') && text.endsWith('//') ? text : `//${text}//`;
     }
 
     function resetEPFormatting() {
@@ -142,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function () {
         themeStylesheet.href = themes[theme];
         activeTheme = theme;
         document.body.className = theme;
-
+    
         if (theme === 'selftitled-theme') {
             selfTitledContainer.style.display = 'flex';
             defaultOutputContainer.style.display = 'none';
@@ -160,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function () {
             resetDefaultThemeStyles();
         }
     }
-
+    
     document.querySelectorAll('.color-circle').forEach((button) => {
         button.addEventListener('click', () => {
             switchTheme(button.id);
