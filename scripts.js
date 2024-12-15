@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const defaultOutput = "Genuinely&nbsp;Laughable<br>iliwys meme generator";
     const defaultSelfTitledTextWithBreaks = "Go down<br>Soft sound<br>Midnight<br>Car lights";
     const defaultSelfTitledTextNoBreaks = "Go down Soft sound Midnight Car lights";
+    const epDefaultText = "// musicforcars //"; // Default text for EP version
 
     let boxVisible = true;
     let activeTheme = 'default-theme';
@@ -98,9 +99,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function resetSelfTitledStyles() {
         // Reset font size and spacing for self-titled theme only
-        const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
+        const text = boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks;
         outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
         adjustFontSizeAndSpacing(text);
+    }
+
+    function resetInputField() {
+        userInput.value = ''; // Clear the text area input
     }
 
     userInput.addEventListener(
@@ -132,6 +137,8 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     function switchTheme(theme) {
+        resetInputField(); // Clear the input field whenever a theme is switched
+
         const previousOutput = userInput.value || outputText.innerHTML.replace(/<br>/g, ' ');
         themeStylesheet.href = themes[theme];
         activeTheme = theme;
@@ -142,11 +149,11 @@ document.addEventListener('DOMContentLoaded', function () {
             defaultOutputContainer.style.display = 'none';
             toggleBoxContainer.style.display = 'block';
             if (!boxVisible) {
-                outputTextSelfTitled.innerHTML = formatTextForSelfTitled(previousOutput);
+                outputTextSelfTitled.innerHTML = epDefaultText;
             } else {
                 resetEPFormatting();
             }
-            adjustFontSizeAndSpacing(previousOutput);
+            adjustFontSizeAndSpacing(epDefaultText);
         } else {
             selfTitledContainer.style.display = 'none';
             defaultOutputContainer.style.display = 'flex';
@@ -162,12 +169,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (boxVisible) {
             resetEPFormatting(); // Reset formatting when switching to Box mode
         } else {
-            const text = userInput.value || defaultSelfTitledTextNoBreaks;
-            outputTextSelfTitled.innerHTML = formatTextForSelfTitled(text);
+            outputTextSelfTitled.innerHTML = epDefaultText;
         }
 
-        const text = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
-        adjustFontSizeAndSpacing(text);
+        adjustFontSizeAndSpacing(epDefaultText);
     });
 
     document.querySelectorAll('.color-circle').forEach((button) => {
@@ -177,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Ensure proper formatting on page load
-    const initialText = userInput.value || (boxVisible ? defaultSelfTitledTextWithBreaks : defaultSelfTitledTextNoBreaks);
+    const initialText = userInput.value || epDefaultText;
     outputTextSelfTitled.innerHTML = formatTextForSelfTitled(initialText);
     adjustFontSizeAndSpacing(initialText);
 });
