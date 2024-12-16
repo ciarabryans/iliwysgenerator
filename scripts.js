@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let fontSize = window.innerWidth < 600 ? 18 : 36; // Default scaling
         const minFontSize = 12;
 
-        // Adjust font size dynamically
         context.font = `${fontSize}px GothicB`;
         let textWidth = context.measureText(text).width;
         let lineCount = (text.match(/\n/g) || []).length + 1;
@@ -56,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
             outputText.style.letterSpacing = adjustedLetterSpacing;
             outputText.style.lineHeight = '1.2';
         } else if (activeTheme === 'ep-theme') {
-            // Increase letter spacing by 3px for EP theme on desktop
             adjustedLetterSpacing = (fontSize / defaultFontSize) * (defaultLetterSpacing - 2 + (window.innerWidth >= 600 ? 3 : 0)); 
             lineHeight += 8; // Add 8px for EP theme
             outputTextSelfTitled.style.fontSize = `${fontSize}px`;
@@ -76,8 +74,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function formatTextForEP(text) {
-        // Add `//` only if it's not already formatted, no spaces around //
-        return text.startsWith('//') && text.endsWith('//') ? text : `//${text}//`;
+        const styledSlashes = '<span class="slash">//</span>';
+        const styledText = text.startsWith('//') && text.endsWith('//')
+            ? text
+            : `${styledSlashes}${text}${styledSlashes}`;
+        return styledText.replace(/\/\/(.*?)\/\//g, `${styledSlashes}$1${styledSlashes}`);
     }
 
     function resetEPFormatting() {
@@ -95,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function resetDefaultThemeStyles() {
-        // Default theme styles synced from live production code
         const fontSize = window.innerWidth < 600 ? '20px' : '40px';
         const letterSpacing = window.innerWidth < 600 ? '5px' : '7px'; // Synced values
         outputText.style.fontSize = fontSize;
