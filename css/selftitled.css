@@ -104,7 +104,7 @@ body, html {
     align-items: center;
     margin: 20px auto;
     position: relative;
-    animation: pulse-glow 3s infinite;
+    animation: pulse-glow 2s infinite; /* Reduced duration for quicker pulses */
     overflow: hidden;
 }
 
@@ -121,13 +121,13 @@ body, html {
 
 @keyframes pulse-glow {
     0% {
-        box-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 8px rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.6), 0 0 18px rgba(255, 255, 255, 0.4);
     }
     50% {
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 14px rgba(255, 255, 255, 0.4);
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.8), 0 0 35px rgba(255, 255, 255, 0.6);
     }
     100% {
-        box-shadow: 0 0 6px rgba(255, 255, 255, 0.4), 0 0 8px rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.6), 0 0 18px rgba(255, 255, 255, 0.4);
     }
 }
 
